@@ -103,8 +103,8 @@ cd /root/stack
  - S.M.A.R.T. 디스크 모니터링 smartd 설치. (선택가능)
  - 하드웨어 센서 모니터링 sensors 설치. (선택가능)
  - 서버 필수 유틸과 점검툴들 설치. (선택가능)
-  - rsync wget openssh-clients bind-utils git telnet nc vim-enhanced man ntsysv htop glances iotop iftop sysstat strace lsof mc lrzsz zip unzip bzip2
-  - 서버 장애로 점검하려고 할 때 설치하면 늦습니다.
+  > rsync wget openssh-clients bind-utils git telnet nc vim-enhanced man ntsysv htop glances iotop iftop sysstat strace lsof mc lrzsz zip unzip bzip2
+  > 서버 장애로 점검하려고 할 때 설치하면 늦습니다.
 
 
 ## 방화벽 설정은 지원하지 않으므로, 수작업이 필요합니다.
