@@ -17,7 +17,7 @@
 
 ## 설치 방법
 
-> CentOS 6/7 만 지원됩니다.
+> CentOS 6/7 만 지원됩니다.  (minimal 설치 환경 지원)
 
 
 `주의) 서버에 PHP, MariaDB/MySQL, Nginx/Apache 가 설치되지 않은 상태에서만 가능합니다!
