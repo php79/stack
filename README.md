@@ -57,6 +57,8 @@ cd /root/stack
 ./status.sh
 ```
 
+> 상태 화면 미리보기 - http://phpschool.com/link/talkbox2/1434838
+
 - Laravel, WordPress, XE, 그누보드, phpMyAdmin 자동 설치를 지원합니다.
  - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치까지 모두 한 번에 이루어 집니다.
 
