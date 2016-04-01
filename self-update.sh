@@ -6,6 +6,8 @@
 STACK_ROOT=$( cd "$( dirname "$0" )" && pwd )
 source "${STACK_ROOT}/includes/function.inc.sh"
 
+cd ${STACK_ROOT}
+
 welcome_short
 
 title "php79 stack 업데이트를 시작합니다."

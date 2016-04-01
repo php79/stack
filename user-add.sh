@@ -6,6 +6,8 @@
 STACK_ROOT=$( cd "$( dirname "$0" )" && pwd )
 source "${STACK_ROOT}/includes/function.inc.sh"
 
+cd ${STACK_ROOT}
+
 welcome_short
 
 title "시스템, 디비 계정을 생성합니다."
