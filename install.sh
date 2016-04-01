@@ -6,6 +6,7 @@
 STACK_ROOT=$( cd "$( dirname "$0" )" && pwd )
 source "${STACK_ROOT}/includes/function.inc.sh"
 
+cd ${STACK_ROOT}
 
 ### Init
 SCRIPT_SELF=`basename $0`
