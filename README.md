@@ -19,8 +19,9 @@
 
 > CentOS 6/7 만 지원됩니다.
 
-> 주의) 서버에 PHP, MariaDB/MySQL, Nginx/Apache 가 설치되지 않은 상태에서만 가능합니다!
-서버 OS 설치를 의뢰하실 경우 미리 별도 요청하셔야 합니다.  **OS만 설치하고 APM 은 설치하지 마세요.**
+
+`주의) 서버에 PHP, MariaDB/MySQL, Nginx/Apache 가 설치되지 않은 상태에서만 가능합니다!
+서버 OS 설치를 의뢰하실 경우 미리 별도 요청하셔야 합니다.  **OS만 설치하고 APM 은 설치하지 마세요.**`
 
 > git 명령이 없다면, `yum install git`으로 먼저 설치하셔야 합니다.
 
