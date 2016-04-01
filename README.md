@@ -19,6 +19,8 @@
 
 > CentOS 6/7 만 지원됩니다.
 
+> git 명령이 없다면, `yum install git`으로 먼저 설치하셔야 합니다.
+
 ```bash
 cd /root/ \
 && git clone https://github.com/php79/stack.git \
@@ -35,9 +37,6 @@ cd /root/ \
 
 - `./install.sh` 는 중복 실행해도 문제없도록 설계되었습니다.
  - 따라서 PHP 7.0 만 설치했다가 차후, PHP 5.3 , 5.4 등을 추가로 설치하실 수 있습니다.
-
-- 설치시 git 명령이 없다고 에러가 발생합니까?
- -  `yum install git`으로 먼저 설치해주시면 됩니다.
 
 
 ## 주요 명령
