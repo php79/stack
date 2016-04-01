@@ -1,0 +1,20 @@
+# /etc/my.cnf.d/ 디렉토리안의 파일들은 이름 순으로 정렬되며, 가장 마지막 설정을 따르게 됩니다.
+# 따라서 z- 시작하는 이 파일에 선언한 내용이 가장 우선 순위로 적용됩니다.
+
+[client]
+default-character-set=utf8mb4
+
+[mysql]
+default-character-set=utf8mb4
+
+[mysqld]
+collation-server = utf8mb4_unicode_ci
+#init-connect='SET NAMES utf8mb4'
+character-set-server = utf8mb4
+max_allowed_packet = 32M
+slow_query_log
+long_query_time = 2
+
+[mysqldump]
+default-character-set=utf8mb4
+max_allowed_packet = 32M
