@@ -122,7 +122,7 @@ function options
     if [ ${OS} = "centos7" ]; then
       printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} / Source compile\n"
     else
-      printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo / http://rpms.famillecollet.com/\n"
+      printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo\n"
     fi
   fi
 
