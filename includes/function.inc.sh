@@ -116,6 +116,7 @@ function options
 
   if [ $PHP54 = "1" ]; then
     printf "  - Install ${GREEN}PHP 5.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    printf "      ${YELLOW}PHP 5.4 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
   if [ $PHP53 = "1" ]; then
@@ -124,9 +125,10 @@ function options
     else
       printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo\n"
     fi
+    printf "      ${YELLOW}PHP 5.3 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
-  echo "      Set PHP version for /usr/bin/php : $PHP_BASE"
+  echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
 
   if [ $NGINX = "1" ]; then
     printf "  - Install ${GREEN}Nginx 1.8${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
