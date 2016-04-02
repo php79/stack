@@ -35,9 +35,13 @@ cd /root/ \
 - 기본 설치 옵션은 **PHP 7.0** + Nginx + MariaDB 입니다.
  - 설치 화면에서 'y'만 누르면 바로 설치가 진행됩니다.
 
+![PHP 7.0](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113049.png)
+
 - **PHP 5.3** 등 다른 버전을 설치하시겠습니까?
  - 설치화면에서 'n'를 누르고 중단합니다.
  - 그리고 `stack.conf` 파일을 열어 `PHP53=1` 으로 활성화시켜주고, 다시 `./install.sh` 를 실행하면 됩니다.
+
+![PHP 5.3-7.0](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-104524.png)
 
 - `./install.sh` 는 중복 실행해도 문제없도록 설계되었습니다.
  - 따라서 PHP 7.0 만 설치했다가 차후, PHP 5.3 , 5.4 등을 추가로 설치하실 수 있습니다.
@@ -57,7 +61,8 @@ cd /root/stack
 ./status.sh
 ```
 
-> 상태 화면 미리보기 - http://phpschool.com/link/talkbox2/1434838
+![status.sh](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113610.png)
+
 
 - Laravel, WordPress, XE, 그누보드, phpMyAdmin 자동 설치를 지원합니다.
  - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치까지 모두 한 번에 이루어 집니다.
@@ -122,6 +127,10 @@ cd /root/stack
 - iptables 설정 방법: http://www.php79.com/59
 - TODO: firewalld 설정 방법: (준비중입니다.)
 
+## PHP 확장 모듈 추가 설치
+
+- ionCube loader - http://www.php79.com/472
+- TODO: oracle
 
 ## License
 
