@@ -8,9 +8,6 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 
 cd ${STACK_ROOT}
 
-### Init
-SCRIPT_SELF=`basename $0`
-
 ### PHP base version check
 PHP_BASE_INSTALL=PHP$PHP_BASE
 if [ ${!PHP_BASE_INSTALL} = "0" ]; then
