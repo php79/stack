@@ -11,4 +11,4 @@ else
   LENGTH=${1}
 fi
 
-< /dev/urandom tr -dc A-HJ-NP-Za-km-np-z1-9 | head -c${2:-${LENGTH}};echo;
+< /dev/urandom tr -dc A-HJ-NP-Za-km-np-z1-9 | head -c ${LENGTH}
