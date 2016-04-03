@@ -114,7 +114,7 @@ cd /root/stack
 
 - 서버 초기 셋팅
  - ntp 시간 자동 동기화.   (미래나 과거 날짜가 보여지는 문제는 이제 그만!)
- - SELinux 비활성화.
+ - SELinux 비활성화.  ([보다 강력한 보안을 위한 SELinux 사용 방법](https://lesstif.gitbooks.io/security-best-practice/content/selinux.html))
  - 타임존 설정.
  - S.M.A.R.T. 디스크 모니터링 smartd 설치. (선택가능)
  - 하드웨어 센서 모니터링 sensors 설치. (선택가능)
