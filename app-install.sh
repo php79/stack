@@ -49,6 +49,13 @@ function show_usage
   echo -n "  "
   outputInfo  "--app"
   echo "       설치할 프로그램명은 ${STACK_ROOT}/apps 디렉토리안의 하위 디렉토리명과 일치해야 합니다."
+  echo "         laravel52  - Laravel 5.2"
+  echo "         laravel51  - Laravel 5.1"
+  echo "         wordpress  - WordPress"
+  echo "         phpmyadmin - phpMyAdmin"
+  echo "         gnuboard5  - 그누보드 5"
+  echo "         gnuboard4  - 그누보드 4"
+  echo "         xe1        - XE 1"
   echo
 
   echo -n "  "
