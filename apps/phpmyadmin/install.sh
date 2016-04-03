@@ -15,7 +15,7 @@ cd ~ \
 && cp -av config.sample.inc.php config.inc.php
 
 # 쿠키 암호화에 사용되는 키 생성
-BLOWFISH_SECRET=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#' | head -c${2:-32};echo;)
+BLOWFISH_SECRET=$(< /dev/urandom tr -dc 'A-Za-z0-9!@#' | head -c 32)
 sed -i "s/\$cfg\['blowfish_secret'\] = '[^']*'/\$cfg\['blowfish_secret'\] = '${BLOWFISH_SECRET}'/g" config.inc.php
 
 echo "phpMyAdmin 설치가 완료되었습니다."
