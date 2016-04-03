@@ -124,7 +124,7 @@ if [ $MARIADB = "1" ]; then
     #if [ "$INTERACTIVE" = "1" ]; then
     #  mariadb_set_root_password
     #else
-      MARIADB_ROOT_PASSWORD=`scripts/password-generate.sh`
+      MARIADB_ROOT_PASSWORD=$(scripts/password-generate.sh)
       /usr/bin/mysqladmin password "${MARIADB_ROOT_PASSWORD}"
 
       if [ "${?}" != "0" ]; then
