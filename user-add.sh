@@ -69,7 +69,7 @@ if [ -z ${INPUT_USER} ]; then
   input_abort "user 항목을 입력하세요."
 fi
 
-if [ ! -z $(id -u ${INPUT_USER} 2>1) ]; then
+if [ ! -z $(id -u ${INPUT_USER} 2>/dev/null) ]; then
   input_abort "이미 생성된 user 입니다."
 fi
 
