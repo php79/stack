@@ -26,6 +26,8 @@ function show_usage
   echo
   outputComment "  ${0} --user=wordpress --password='php79!@' --domain=wordpress.php79.com --app=wordpress --php=70"
   echo
+  outputComment "  ${0} --user=phpmyadmin --password='php79!@' --domain=phpmyadmin.php79.com --app=phpmyadmin --php=70"
+  echo
 
   echo
   echo "Usage:"
