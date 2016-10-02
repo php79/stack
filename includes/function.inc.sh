@@ -112,6 +112,7 @@ function options
 
   if [ $PHP55 = "1" ]; then
     printf "  - Install ${GREEN}PHP 5.5${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    printf "      ${YELLOW}PHP 5.5 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
   if [ $PHP54 = "1" ]; then
