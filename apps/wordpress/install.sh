@@ -9,12 +9,12 @@ fi
 
 cd ~ \
 && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-&& chmod 700 wp-cli.phar \
+&& chmod -v 700 wp-cli.phar \
 && mv wp-cli.phar wp \
 && mkdir -p master/public \
 && cd master/public \
 && ~/wp core download --locale=ko_KR \
-&& chmod -R a+rw wp-content/
+&& chmod -v -R a+rw wp-content/
 
 # 디비 정보 입력
 ~/wp core config --dbname=${1} --dbuser=${1} --dbpass=${2} --dbcharset=utf8mb4 --extra-php <<PHP
@@ -22,7 +22,7 @@ define( 'FS_METHOD', 'direct' );
 PHP
 
 # WP Super Cache 처럼 플러그인에서 설정 파일을 수정할 수 있도록 대응
-chmod a+rw wp-config.php
+chmod -v a+rw wp-config.php
 
 echo "워드프레스 설치 준비가 완료되었습니다."
 echo "웹브라우저로 접속하여 설치를 계속 진행하여 주세요."

@@ -17,7 +17,7 @@ cd ~ \
 mkdir -m 0766 files
 
 # 쉬운 설치 지원
-chmod -R a+rw ./
+chmod -v -R a+rw ./
 
 echo "XE1 설치 준비가 완료되었습니다."
 echo "웹브라우저로 접속하여 설치를 계속 진행하여 주세요."

@@ -12,10 +12,10 @@ cd ~ \
 && cd master \
 && git clone --depth=1 --branch=master https://github.com/gnuboard/gnuboard5.git public \
 && cd public \
-&& chmod u+x perms.sh \
+&& chmod -v u+x perms.sh \
 && ./perms.sh \
 && mkdir data \
-&& chmod uo+rwx data
+&& chmod -v uo+rwx data
 
 echo "그누보드5 설치 준비가 완료되었습니다."
 echo "웹브라우저로 접속하여 설치를 계속 진행하여 주세요."

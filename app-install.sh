@@ -207,14 +207,14 @@ fi
 # 앱 설치 스크립트 추가
 notice "앱 설치를 시작합니다."
 cp -av "${STACK_ROOT}/apps/${INPUT_APP}/install.sh" "/home/${INPUT_USER}/" \
-&& chmod 700 "/home/${INPUT_USER}/install.sh" \
-&& chown "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
+&& chmod -v 700 "/home/${INPUT_USER}/install.sh" \
+&& chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
 && su - ${INPUT_USER} -c "./install.sh ${INPUT_USER} ${INPUT_PASSWORD}"
 
 if [ -f "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" ]; then
   cp -av "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" "/home/${INPUT_USER}/" \
-  && chmod 700 "/home/${INPUT_USER}/update.sh" \
-  && chown "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/update.sh"
+  && chmod -v 700 "/home/${INPUT_USER}/update.sh" \
+  && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/update.sh"
 fi
 
 # nginx 재시작

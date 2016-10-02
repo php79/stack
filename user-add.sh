@@ -81,8 +81,8 @@ fi
 # System account
 # TODO: /home 대신 다른 파티션을 지정하거나, HOME_DIR 을 입력받도록 개선
 useradd ${INPUT_USER} \
-&& chmod 710 "/home/${INPUT_USER}" \
-&& chgrp nobody "/home/${INPUT_USER}" \
+&& chmod -v 710 "/home/${INPUT_USER}" \
+&& chgrp -v nobody "/home/${INPUT_USER}" \
 && echo "${INPUT_USER}:${INPUT_PASSWORD}" | chpasswd
 
 if [ "${?}" != "0" ]; then

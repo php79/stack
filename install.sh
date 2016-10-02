@@ -132,7 +132,7 @@ if [ $MARIADB = "1" ]; then
 
       echo "[client]
 password=${MARIADB_ROOT_PASSWORD}" > /root/.my.cnf
-      chmod o-rwx /root/.my.cnf
+      chmod -v o-rwx /root/.my.cnf
 
       notice "Your MariaDB root password saved \"/root/.my.cnf\"\n  (자동 생성된 MariaDB root 비밀번호는 \"/root/.my.cnf\" 파일에도 저장되었습니다.)"
       echo "  Password : ${MARIADB_ROOT_PASSWORD}"
