@@ -20,4 +20,4 @@ else
   service ntpd start
 fi
 
-ntpdate -u 0.centos.pool.ntp.org
+ntpdate -u kr.pool.ntp.org 0.centos.pool.ntp.org pool.ntp.org
