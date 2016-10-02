@@ -94,7 +94,7 @@ if [ ! -z ${LAST_SERVICE_NAME} ]; then
   if [ ${OS} = 'centos7' ]; then
     outputInfo "  * MariaDB 재시작 명령: systemctl restart mariadb"
   else
-    outputInfo "  * MariaDB 재시작 명령: service mariadb restart"
+    outputInfo "  * MariaDB 재시작 명령: service mysql restart"
   fi
   echo
 fi
