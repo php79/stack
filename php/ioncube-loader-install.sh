@@ -18,25 +18,26 @@ if [ ${PHP_VERSION} = "70" ]; then
   abort "[2016-04-02] 기준, PHP 7.0 로더는 아직 출시되지 않았습니다."
 fi
 
-if [ ! -f "/usr/bin/php${PHP_VERSION}" ]; then
-  abort "해당 PHP 버전이 설치되지 않았습니다.  /usr/bin/php${PHP_VERSION}"
+PHP_CLI="/usr/bin/php${PHP_VERSION}"
+if [ ! -f ${PHP_CLI} ]; then
+  abort "해당 PHP 버전이 설치되지 않았습니다.  ${PHP_CLI}"
 fi
 
 # 로더 설치 여부
 function extension_loaded
 {
-  echo $("/usr/bin/php${PHP_VERSION}" -r 'echo (int)extension_loaded("ionCube Loader");')
+  echo $(${PHP_CLI} -r 'echo (int)extension_loaded("ionCube Loader");')
 }
 
 if [ $(extension_loaded) = "1" ]; then
-  "/usr/bin/php${PHP_VERSION}" -v
+  ${PHP_CLI} -v
 
   abort "PHP ionCube loader 모듈이 이미 설치되어 있습니다."
 fi
 
 if [ ${PHP_VERSION} = "53" ]; then
   # CentOS 6 RPM 설치, CentOS 7 컴파일 설치시엔 수동 설치
-  EXTENSION_DIR=$("/usr/bin/php${PHP_VERSION}" -r 'echo ini_get("extension_dir");')
+  EXTENSION_DIR=$(${PHP_CLI} -r 'echo ini_get("extension_dir");')
   notice "https://www.ioncube.com/loaders.php 에서 로더를 다운 받아, ${EXTENSION_DIR}/ioncube_loader.so 경로로 설치합니다."
   if [ $OS = "centos7" ]; then
     LOADER_INI=/usr/local/php53/etc/php.d/01-ioncube_loader.ini
@@ -74,9 +75,9 @@ if [ $(extension_loaded) = "1" ]; then
   echo
   outputInfo "PHP ionCube loader 모듈이 설치되었습니다."
   echo
-  "/usr/bin/php${PHP_VERSION}" -v
+  ${PHP_CLI} -v
 else
-  "/usr/bin/php${PHP_VERSION}" -v
+  ${PHP_CLI} -v
 
   abort "PHP ionCube loader 모듈이 정상적으로 설치되지 않았습니다."
 fi
