@@ -83,7 +83,7 @@ fi
 if [ ! -d /usr/local/php53/var/session ]; then
     mkdir -p /usr/local/php53/var/session
 fi
-chown nobody.nobody /usr/local/php53/var/session
+chown -v nobody.nobody /usr/local/php53/var/session
 
 if [ ! -f /usr/lib/systemd/system/php53-php-fpm.service ]; then
   mkdir /usr/local/php53/sysconfig

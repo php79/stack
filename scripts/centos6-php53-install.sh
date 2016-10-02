@@ -32,8 +32,8 @@ sed -i 's/^listen = 127.0.0.1:9000/listen = 127.0.0.1:9053/g' $PHP_FPM_CONF
 if [ ! -d /var/lib/php/session ]; then
     mkdir /var/lib/php/session
 fi
-chown nobody.nobody /var/lib/php /var/lib/php/session
-chgrp nobody /var/log/php-fpm
+chown -v nobody.nobody /var/lib/php /var/lib/php/session
+chgrp -v nobody /var/log/php-fpm
 
 chkconfig php-fpm on
 service php-fpm start
