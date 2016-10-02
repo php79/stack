@@ -46,4 +46,5 @@ if [ -f /etc/nginx/conf.d/0-php79.conf ]; then
 fi
 
 # #9 ioncube 설치를 위해 php53 경로가 필요하고, /usr/bin/php 는 php-cli-version-set.sh 에 의해 링크로만 존재하도록 함
-mv -f /usr/bin/php /usr/bin/php53
+mv -f /usr/bin/php /usr/bin/php53 \
+&& ln -s /usr/bin/php53 /usr/bin/php
