@@ -134,7 +134,7 @@ cd /root/stack
 
 ## 변경 내역
 
-[CHANGELOG](changelog.md)
+[CHANGELOG](CHANGELOG.md)
 
 ## License
 
