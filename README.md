@@ -132,6 +132,10 @@ cd /root/stack
 - ionCube loader - http://www.php79.com/472
 - TODO: oracle
 
+## 변경 내역
+
+[CHANGELOG](changelog.md)
+
 ## License
 
 [The MIT License (MIT)](LICENSE.md)
