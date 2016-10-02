@@ -31,6 +31,7 @@ sed -i 's/^group = apache/group = nobody/g' $PHP_FPM_CONF
 sed -i 's/^listen = 127.0.0.1:9000/listen = 127.0.0.1:90'$1'/g' $PHP_FPM_CONF
 
 chgrp nobody /var/opt/remi/php$1/lib/php/*
+chown nobody /var/opt/remi/php$1/log/php-fpm
 
 if [ $OS = "centos7" ]; then
   systemctl enable php$1-php-fpm
