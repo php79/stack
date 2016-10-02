@@ -33,6 +33,7 @@ if [ ! -d /var/lib/php/session ]; then
     mkdir /var/lib/php/session
 fi
 chown nobody.nobody /var/lib/php /var/lib/php/session
+chgrp nobody /var/log/php-fpm
 
 chkconfig php-fpm on
 service php-fpm start
