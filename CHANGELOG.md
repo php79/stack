@@ -1,5 +1,15 @@
 # php79 stack 변경 내역
 
+## v0.9.11 (2017-02-01)
+
+### Added
+- PHP 7.1 설치 지원 https://github.com/php79/stack/issues/23
+ - 기존 사용자들이 PHP 7.1 만 추가로 설치하는 방법 - https://github.com/php79/stack/wiki/php-71-install
+- PHP 7.0 ionCube loader 설치 지원
+
+### Fixed
+- ionCube loader 설치후 php-fpm 재시작 지원 https://github.com/php79/stack/issues/17
+
 ## v0.9.10 (2016-10-02)
 
 ### Added
