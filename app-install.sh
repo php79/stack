@@ -28,6 +28,8 @@ function show_usage
   echo
   outputComment "  ${0} --user=phpmyadmin --password='php79!@' --domain=phpmyadmin.php79.com --app=phpmyadmin --php=70"
   echo
+  outputComment "  ${0} --user=octobercms --password='php79!@' --domain=octobercms.php79.com --app=laravel51 --php=70 --skip-install"
+  echo
 
   echo
   echo "Usage:"
@@ -66,6 +68,12 @@ function show_usage
   echo "                Tip) Laravel 은 70, 그누보드4 는 53 등 프로그램에 따라 적절히 선택하세요."
   echo "                     ./status.sh 명령을 통해 현재 서버에 설치된 PHP 버전을 확인할 수 있습니다."
   echo
+
+  echo -n "  "
+  outputInfo  "--skip-install"
+  echo "       계정 추가 및 nginx 설정까지만 진행하고, 앱 자동 설치(install.sh)는 생략합니다."
+  echo "                Tip) 이미 제작된 소스로 설치하거나, 직접 소스를 설치하실 경우에 사용하세요."
+  echo
 }
 
 function input_abort
@@ -80,6 +88,7 @@ if [ -z ${1} ]; then
   show_usage
   exit
 else
+  INPUT_SKIP_INSTALL=0
   for i in "${@}"
   do
     case $i in
@@ -102,6 +111,10 @@ else
     --php=*)
       shift
       INPUT_PHP_VERSION="${i#*=}"
+      ;;
+    --skip-install)
+      shift
+      INPUT_SKIP_INSTALL=1
       ;;
     -h | --help )
       show_usage
@@ -205,16 +218,20 @@ fi
 
 
 # 앱 설치 스크립트 추가
-notice "앱 설치를 시작합니다."
-cp -av "${STACK_ROOT}/apps/${INPUT_APP}/install.sh" "/home/${INPUT_USER}/" \
-&& chmod -v 700 "/home/${INPUT_USER}/install.sh" \
-&& chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
-&& su - ${INPUT_USER} -c "./install.sh ${INPUT_USER} ${INPUT_PASSWORD}"
+if [ "$INPUT_SKIP_INSTALL" = "0" ]; then
+  notice "앱 설치를 시작합니다."
+  cp -av "${STACK_ROOT}/apps/${INPUT_APP}/install.sh" "/home/${INPUT_USER}/" \
+  && chmod -v 700 "/home/${INPUT_USER}/install.sh" \
+  && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
+  && su - ${INPUT_USER} -c "./install.sh ${INPUT_USER} ${INPUT_PASSWORD}"
 
-if [ -f "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" ]; then
-  cp -av "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" "/home/${INPUT_USER}/" \
-  && chmod -v 700 "/home/${INPUT_USER}/update.sh" \
-  && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/update.sh"
+  if [ -f "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" ]; then
+    cp -av "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" "/home/${INPUT_USER}/" \
+    && chmod -v 700 "/home/${INPUT_USER}/update.sh" \
+    && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/update.sh"
+  fi
+else
+  notice "앱 자동 설치는 생략합니다.(--skip-install)"
 fi
 
 # nginx 재시작
