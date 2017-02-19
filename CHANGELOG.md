@@ -5,6 +5,9 @@
 ### Added
 - app-install.sh 에서 --skip-install 옵션을 추가하여 앱 자동 설치만 제외할 수 있도록 개선함 https://github.com/php79/stack/issues/4
 
+### Fixed
+- status.sh 실행 속도 개선 및 서비스별 설정을 구분하여 표시하도록 개선 https://github.com/php79/stack/issues/22 
+
 ## v0.9.11 (2017-02-01)
 
 ### Added
