@@ -257,7 +257,7 @@ if [ ${PASSWORD_GENERATED} = "1" ]; then
 fi
 
 echo
-outputInfo "앱 설치가 완료되었습니다.\n\n"
+outputComment "### 앱 설치가 완료되었습니다. ###\n\n"
 
 outputInfo "  - Nginx config      : /etc/nginx/conf.d/${INPUT_USER}.conf\n\n"
 
