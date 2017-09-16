@@ -7,6 +7,7 @@
 
 ### Fixed
 - status.sh 실행 속도 개선 및 서비스별 설정을 구분하여 표시하도록 개선 https://github.com/php79/stack/issues/22
+- 시간 동기화 명령인 ntpdate 실패(대부분 방화벽 차단, DNS 이슈)시에도 경고만 보여지고 설치가 진행되도록 개선 https://github.com/php79/stack/issues/31
 - cpu core 수가 2개 인 경우, nginx.conf 의 worker_processes 가 0 으로 잘못 설정되던 오류 수정 
 
 ## v0.9.11 (2017-02-01)
