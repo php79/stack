@@ -192,7 +192,7 @@ fi
 
 # TODO: PHP 와 nginx 서버가 분리된 경우 대응 고려
 # 추가전 nginx 설정 체크
-outputComment "# 먼저 nginx 설정을 테스트합니다."
+outputComment "# nginx 설정 추가전, nginx 설정을 테스트합니다."
 echo
 /usr/sbin/nginx -t
 
