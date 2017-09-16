@@ -9,8 +9,8 @@
 - 쉬운 업데이트 지원.  (공식+인기 저장소를 사용하여 `yum update` 만으로 완료)
 - 기본 설정 파일의 수정을 최소화하여 혼란 예방.  (주요 설정 내용을 z-php79.ini 형태의 외부 파일로 분리)
 - PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2 7가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
+- Laravel 5.1~5.5, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치 지원.  ([app-install.sh](app-install.sh))
 - 시스템 계정, 디비 계정 자동 생성 지원.  ([user-add.sh](user-add.sh))
-- Laravel, WordPress, XE, 그누보드, phpMyAdmin 자동 설치 지원.  ([app-install.sh](app-install.sh))
 
 > 요약: 더 이상 설치에 시간을 낭비하지 마시고, 여러분의 코딩과 업무에 집중하세요! :)
 
