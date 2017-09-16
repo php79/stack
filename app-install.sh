@@ -243,7 +243,7 @@ else
 fi
 
 # nginx 재시작
-outputComment "nginx 를 재시작합니다."
+outputComment "# nginx 를 재시작합니다.\n"
 echo
 if [ $OS = "centos7" ]; then
   systemctl reload nginx
@@ -253,7 +253,7 @@ fi
 
 # 비밀번호 자동 생성시, ~/.my.cnf 생성
 if [ ${PASSWORD_GENERATED} = "1" ]; then
-  su - ${INPUT_USER} -c "printf \"[client]\\npassword=${INPUT_PASSWORD}\\n\" > ~/.my.cnf && chmod -v go-rwx ~/.my.cnf"
+  su - ${INPUT_USER} -c "printf \"[client]\\npassword=${INPUT_PASSWORD}\\n\" > ~/.my.cnf && chmod go-rwx ~/.my.cnf"
 fi
 
 echo
