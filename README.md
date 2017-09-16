@@ -55,25 +55,17 @@ cd /root/ \
 cd /root/stack
 ```
 
-- 설치된 PHP 버전, 설정 파일 경로, 실행 여부, 서비스 재시작 명령 등의 모든 상태 정보를 확인할 수 있습니다.
+### app-install.sh
 
-```bash
-./status.sh
-```
-
-![status.sh](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113610.png)
-
-
-- Laravel, WordPress, XE, 그누보드, phpMyAdmin 자동 설치를 지원합니다.
+- Laravel 5.1~55, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치를 지원합니다.
  - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치까지 모두 한 번에 이루어 집니다.
 
 ```bash
-./app-install.sh --user=php79 --password='php79!@' --domain=php79.com --app=laravel51 --php=70
+./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=70
 ```
+ 
+![app-install.sh](https://www.php79.com/wp-content/uploads/2017/09/2017-09-16-162611.png)
 
-```bash
-./app-install.sh --user=wordpress --password='php79!@' --domain=wordpress.php79.com --app=wordpress --php=70
-```
 
 - 기존 사이트 이전이나 수동 설치를 위해, 시스템 계정, 디비 계정만 생성할 수 있습니다.
 
@@ -82,6 +74,19 @@ cd /root/stack
 ```
 
 > 경고) 비밀번호는 반드시 변경하여 사용하세요.  특히 시스템 계정(SSH/SFTP)이 생성되므로, 단순한 비밀번호는 절대 안됩니다!!!
+
+
+### status.sh
+
+- 설치된 PHP 버전, 설정 파일 경로, 실행 여부, 서비스 재시작 명령 등의 모든 상태 정보를 확인할 수 있습니다.
+
+```bash
+./status.sh
+```
+
+![status.sh](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113610.png)
+
+### self-update.sh
 
 - stack 소스를 최신으로 업데이트합니다.
 
