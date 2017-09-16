@@ -231,7 +231,8 @@ if [ "$INPUT_SKIP_INSTALL" = "0" ]; then
     && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/update.sh"
   fi
 else
-  notice "앱 자동 설치는 생략합니다.(--skip-install)"
+  notice "앱 자동 설치는 생략(--skip-install)하고, 웹문서 디렉토리만 만듭니다."
+  su - ${INPUT_USER} -c "mkdir ~/master/public"
 fi
 
 # nginx 재시작
@@ -244,7 +245,9 @@ else
 fi
 
 echo
-outputInfo "앱 설치가 완료되었습니다.  http://${INPUT_DOMAIN} 로 접속하여 확인해보세요."
+outputInfo "앱 설치가 완료되었습니다.\n\n"
+outputInfo "  - Document root: /home/${INPUT_USER}/master/public\n"
+outputInfo "  - URL: http://${INPUT_DOMAIN}\n"
 echo
 echo "        Tip) 도메인이 없거나 연결되지 않았습니까?  PC 에서만 테스트하는 방법을 참고하세요. http://www.php79.com/176"
 echo
