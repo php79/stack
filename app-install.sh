@@ -258,6 +258,8 @@ fi
 echo
 outputInfo "앱 설치가 완료되었습니다.\n\n"
 
+outputInfo "  - Nginx config      : /etc/nginx/conf.d/${INPUT_USER}.conf\n\n"
+
 outputInfo "  - Document root     : /home/${INPUT_USER}/master/public\n\n"
 
 outputInfo "  - SSH & DB User     : ${INPUT_USER}\n\n"
@@ -267,8 +269,6 @@ if [ ${PASSWORD_GENERATED} = "1" ]; then
   echo "      (자동 생성된 비밀번호이며 \"/home/${INPUT_USER}/.my.cnf\" 파일에도 저장되었습니다.)"
   echo
 fi
-
-outputInfo "  - Nginx config      : /etc/nginx/conf.d/${INPUT_USER}.conf\n\n"
 
 outputInfo "  - URL               : http://${INPUT_DOMAIN}\n"
 echo "      (도메인이 없거나 연결 오류시, PC 에서 hosts 수정하여 테스트하는 방법 - http://www.php79.com/176)"
