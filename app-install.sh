@@ -8,25 +8,27 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 
 cd ${STACK_ROOT}
 
-welcome_short
-
-title "앱 설치 순서는 다음과 같습니다."
-outputComment "  1. 시스템/디비 계정 자동 생성.  user-add.sh 사용"
-echo
-outputComment "  2. 웹서버 자동 설정.   apps/앱이름/template-server.conf 으로 /etc/nginx/conf.d/사용자.conf 설정 생성"
-echo
-outputComment "  3. 앱 자동 설치.  apps/앱이름/install.sh 를 사용자 디렉토리에 복사하여 실행."
-echo
-
 function show_usage
 {
+  welcome_short
+
+  title "앱 설치 순서는 다음과 같습니다."
+  outputComment "  1. 시스템/디비 계정 자동 생성.  user-add.sh 사용"
+  echo
+  outputComment "  2. 웹서버 자동 설정.   apps/앱이름/template-server.conf 으로 /etc/nginx/conf.d/사용자.conf 설정 생성"
+  echo
+  outputComment "  3. 앱 자동 설치.  apps/앱이름/install.sh 를 사용자 디렉토리에 복사하여 실행."
+  echo
+
   echo
   echo "Example:"
-  outputComment "  ${0} --user=php79 --password='php79!@' --domain=php79.com --app=laravel51 --php=70"
+  outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net --app=phpmyadmin --php=70"
   echo
-  outputComment "  ${0} --user=wordpress --password='php79!@' --domain=wordpress.php79.com --app=wordpress --php=70"
+  outputComment "  ${0} --user=wordpress --domain=wordpress.php79.net --app=wordpress --php=70"
   echo
-  outputComment "  ${0} --user=phpmyadmin --password='php79!@' --domain=phpmyadmin.php79.com --app=phpmyadmin --php=70"
+  outputComment "  ${0} --user=laravel55 --domain=laravel55.php79.net --app=laravel55 --php=70"
+  echo
+  outputComment "  ${0} --user=octobercms --domain=octobercms.php79.net --app=laravel51 --php=70 --skip-install"
   echo
 
   echo
@@ -39,7 +41,7 @@ function show_usage
 
   echo -n "  "
   outputInfo  "--password"
-  echo "  비밀번호.  특수문자 사용시엔 반드시 작은 따옴표(')로 감싸주어야 합니다."
+  echo "  (선택) 비밀번호.  미입력시 자동생성됩니다. 특수문자 사용시엔 반드시 작은 따옴표(')로 감싸주어야 합니다."
   echo
 
   echo -n "  "
@@ -51,6 +53,9 @@ function show_usage
   echo -n "  "
   outputInfo  "--app"
   echo "       설치할 프로그램명은 ${STACK_ROOT}/apps 디렉토리안의 하위 디렉토리명과 일치해야 합니다."
+  echo "         laravel55  - Laravel 5.5"
+  echo "         laravel54  - Laravel 5.4"
+  echo "         laravel53  - Laravel 5.3"
   echo "         laravel52  - Laravel 5.2"
   echo "         laravel51  - Laravel 5.1"
   echo "         wordpress  - WordPress"
@@ -62,9 +67,15 @@ function show_usage
 
   echo -n "  "
   outputInfo  "--php"
-  echo "       PHP 버전을 [ 53 54 55 56 56 70 71 ] 형식으로 하나만 입력하세요."
+  echo "       PHP 버전을 [ 53 54 55 56 56 70 71 72 ] 형식으로 하나만 입력하세요."
   echo "                Tip) Laravel 은 70, 그누보드4 는 53 등 프로그램에 따라 적절히 선택하세요."
   echo "                     ./status.sh 명령을 통해 현재 서버에 설치된 PHP 버전을 확인할 수 있습니다."
+  echo
+
+  echo -n "  "
+  outputInfo  "--skip-install"
+  echo "       (선택) 계정 추가 및 nginx 설정까지만 진행하고, 앱 자동 설치(install.sh)는 생략합니다."
+  echo "                Tip) 이미 제작된 소스로 설치하거나, 직접 소스를 설치하실 경우에 사용하세요."
   echo
 }
 
@@ -80,6 +91,7 @@ if [ -z ${1} ]; then
   show_usage
   exit
 else
+  INPUT_SKIP_INSTALL=0
   for i in "${@}"
   do
     case $i in
@@ -103,6 +115,10 @@ else
       shift
       INPUT_PHP_VERSION="${i#*=}"
       ;;
+    --skip-install)
+      shift
+      INPUT_SKIP_INSTALL=1
+      ;;
     -h | --help )
       show_usage
       exit
@@ -116,15 +132,19 @@ if [ -z ${INPUT_USER} ]; then
   input_abort "user 항목을 입력하세요."
 fi
 
+PASSWORD_GENERATED=0
 if [ -z ${INPUT_PASSWORD} ]; then
-  input_abort "password 항목을 입력하세요."
+  #input_abort "password 항목을 입력하세요."
+  INPUT_PASSWORD=$(scripts/password-generate.sh)
+  PASSWORD_GENERATED=1
 fi
 
 # 비밀번호도 입력받아야 하므로, 계정 추가 작업도 일괄 처리
-./user-add.sh --user=${INPUT_USER} --password=${INPUT_PASSWORD}
+./user-add.sh --user=${INPUT_USER} --password=${INPUT_PASSWORD} --skip-guide-app-install
 if [ "${?}" != "0" ]; then
   abort "시스템 계정 추가 작업이 실패하였습니다."
 fi
+echo
 
 #if [ -z $(id -u ${INPUT_USER}) ]; then
 #  input_abort "존재하지 않는 user 입니다.  ./user-add.sh 로 먼저 추가하세요."
@@ -152,7 +172,7 @@ if [ -z ${INPUT_PHP_VERSION} ]; then
 fi
 
 if [ ! -f "/usr/bin/php${INPUT_PHP_VERSION}" ]; then
-  input_abort "PHP ${INPUT_PHP_VERSION} 버전은 아직 설치되지 않았습니다.  입력 형식) 53 54 55 56 70"
+  input_abort "PHP ${INPUT_PHP_VERSION} 버전은 아직 설치되지 않았습니다.  입력 형식) 53 54 55 56 70 71 72"
 fi
 
 # nginx 중복 체크
@@ -172,7 +192,7 @@ fi
 
 # TODO: PHP 와 nginx 서버가 분리된 경우 대응 고려
 # 추가전 nginx 설정 체크
-outputComment "# 먼저 nginx 설정을 테스트합니다."
+outputComment "# nginx 설정 추가전, nginx 설정을 테스트합니다."
 echo
 /usr/sbin/nginx -t
 
@@ -188,8 +208,8 @@ sed -i "s/_INPUT_DOMAIN_/${INPUT_DOMAIN}/g" "/etc/nginx/conf.d/${INPUT_USER}.con
 sed -i "s/_INPUT_USER_/${INPUT_USER}/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
 sed -i "s/_INPUT_BACKEND_/php${INPUT_PHP_VERSION}_backend/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
 echo
-cat "/etc/nginx/conf.d/${INPUT_USER}.conf"
-echo
+#cat "/etc/nginx/conf.d/${INPUT_USER}.conf"
+#echo
 
 # 추가후 nginx 설정 체크.  장애시 롤백하고 다시 테스트
 outputComment "# nginx 설정 추가후, nginx 설정을 다시 테스트합니다."
@@ -205,20 +225,25 @@ fi
 
 
 # 앱 설치 스크립트 추가
-notice "앱 설치를 시작합니다."
-cp -av "${STACK_ROOT}/apps/${INPUT_APP}/install.sh" "/home/${INPUT_USER}/" \
-&& chmod -v 700 "/home/${INPUT_USER}/install.sh" \
-&& chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
-&& su - ${INPUT_USER} -c "./install.sh ${INPUT_USER} ${INPUT_PASSWORD}"
+if [ "$INPUT_SKIP_INSTALL" = "0" ]; then
+  notice "앱 설치를 시작합니다."
+  cp -av "${STACK_ROOT}/apps/${INPUT_APP}/install.sh" "/home/${INPUT_USER}/" \
+  && chmod -v 700 "/home/${INPUT_USER}/install.sh" \
+  && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
+  && su - ${INPUT_USER} -c "./install.sh ${INPUT_USER} ${INPUT_PASSWORD}"
 
-if [ -f "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" ]; then
-  cp -av "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" "/home/${INPUT_USER}/" \
-  && chmod -v 700 "/home/${INPUT_USER}/update.sh" \
-  && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/update.sh"
+  if [ -f "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" ]; then
+    cp -av "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" "/home/${INPUT_USER}/" \
+    && chmod -v 700 "/home/${INPUT_USER}/update.sh" \
+    && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/update.sh"
+  fi
+else
+  notice "앱 자동 설치는 생략(--skip-install)하고, 웹문서 디렉토리만 만듭니다."
+  su - ${INPUT_USER} -c "mkdir -p ~/master/public"
 fi
 
 # nginx 재시작
-outputComment "nginx 를 재시작합니다."
+outputComment "# nginx 를 재시작합니다.\n"
 echo
 if [ $OS = "centos7" ]; then
   systemctl reload nginx
@@ -226,8 +251,28 @@ else
   service nginx reload
 fi
 
+# 비밀번호 자동 생성시, ~/.my.cnf 생성
+if [ ${PASSWORD_GENERATED} = "1" ]; then
+  su - ${INPUT_USER} -c "printf \"[client]\\npassword=${INPUT_PASSWORD}\\n\" > ~/.my.cnf && chmod go-rwx ~/.my.cnf"
+fi
+
 echo
-outputInfo "앱 설치가 완료되었습니다.  http://${INPUT_DOMAIN} 로 접속하여 확인해보세요."
+outputComment "### 앱 설치가 완료되었습니다. ###\n\n"
+
+outputInfo "  - Nginx config      : /etc/nginx/conf.d/${INPUT_USER}.conf\n\n"
+
+outputInfo "  - Document root     : /home/${INPUT_USER}/master/public\n\n"
+
+outputInfo "  - SSH & DB User     : ${INPUT_USER}\n\n"
+
+if [ ${PASSWORD_GENERATED} = "1" ]; then
+  outputInfo "  - SSH & DB Password : ${INPUT_PASSWORD}\n"
+  echo "      (자동 생성된 비밀번호이며 \"/home/${INPUT_USER}/.my.cnf\" 파일에도 저장되었습니다.)"
+  echo
+fi
+
+outputInfo "  - URL               : http://${INPUT_DOMAIN}\n"
+echo "      (도메인이 없거나 연결 오류시, PC 에서 hosts 수정하여 테스트하는 방법 - http://www.php79.com/176)"
 echo
-echo "        Tip) 도메인이 없거나 연결되지 않았습니까?  PC 에서만 테스트하는 방법을 참고하세요. http://www.php79.com/176"
+
 echo
