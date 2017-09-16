@@ -238,7 +238,7 @@ if [ "$INPUT_SKIP_INSTALL" = "0" ]; then
   fi
 else
   notice "앱 자동 설치는 생략(--skip-install)하고, 웹문서 디렉토리만 만듭니다."
-  su - ${INPUT_USER} -c "mkdir ~/master/public"
+  su - ${INPUT_USER} -c "mkdir -p ~/master/public"
 fi
 
 # nginx 재시작
