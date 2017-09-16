@@ -144,6 +144,7 @@ fi
 if [ "${?}" != "0" ]; then
   abort "시스템 계정 추가 작업이 실패하였습니다."
 fi
+echo
 
 #if [ -z $(id -u ${INPUT_USER}) ]; then
 #  input_abort "존재하지 않는 user 입니다.  ./user-add.sh 로 먼저 추가하세요."
