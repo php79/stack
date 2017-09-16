@@ -207,8 +207,8 @@ sed -i "s/_INPUT_DOMAIN_/${INPUT_DOMAIN}/g" "/etc/nginx/conf.d/${INPUT_USER}.con
 sed -i "s/_INPUT_USER_/${INPUT_USER}/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
 sed -i "s/_INPUT_BACKEND_/php${INPUT_PHP_VERSION}_backend/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
 echo
-cat "/etc/nginx/conf.d/${INPUT_USER}.conf"
-echo
+#cat "/etc/nginx/conf.d/${INPUT_USER}.conf"
+#echo
 
 # 추가후 nginx 설정 체크.  장애시 롤백하고 다시 테스트
 outputComment "# nginx 설정 추가후, nginx 설정을 다시 테스트합니다."
