@@ -1,6 +1,6 @@
 # php79 stack 변경 내역
 
-## develop
+## v0.9.12 (2017-09-16)
 
 ### Added
 - app-install.sh 에서 --skip-install 옵션을 추가하여 앱 자동 설치만 제외할 수 있도록 개선함 https://github.com/php79/stack/issues/4
