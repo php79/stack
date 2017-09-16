@@ -8,18 +8,18 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 
 cd ${STACK_ROOT}
 
-welcome_short
-
-title "앱 설치 순서는 다음과 같습니다."
-outputComment "  1. 시스템/디비 계정 자동 생성.  user-add.sh 사용"
-echo
-outputComment "  2. 웹서버 자동 설정.   apps/앱이름/template-server.conf 으로 /etc/nginx/conf.d/사용자.conf 설정 생성"
-echo
-outputComment "  3. 앱 자동 설치.  apps/앱이름/install.sh 를 사용자 디렉토리에 복사하여 실행."
-echo
-
 function show_usage
 {
+  welcome_short
+
+  title "앱 설치 순서는 다음과 같습니다."
+  outputComment "  1. 시스템/디비 계정 자동 생성.  user-add.sh 사용"
+  echo
+  outputComment "  2. 웹서버 자동 설정.   apps/앱이름/template-server.conf 으로 /etc/nginx/conf.d/사용자.conf 설정 생성"
+  echo
+  outputComment "  3. 앱 자동 설치.  apps/앱이름/install.sh 를 사용자 디렉토리에 복사하여 실행."
+  echo
+
   echo
   echo "Example:"
   outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net --app=phpmyadmin --php=70"
