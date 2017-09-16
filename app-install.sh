@@ -22,13 +22,13 @@ function show_usage
 {
   echo
   echo "Example:"
-  outputComment "  ${0} --user=php79 --password='php79!@' --domain=php79.com --app=laravel51 --php=70"
+  outputComment "  ${0} --user=phpmyadmin --password='php79!@' --domain=phpmyadmin.php79.net --app=phpmyadmin --php=70"
   echo
-  outputComment "  ${0} --user=wordpress --password='php79!@' --domain=wordpress.php79.com --app=wordpress --php=70"
+  outputComment "  ${0} --user=wordpress --password='php79!@' --domain=wordpress.php79.net --app=wordpress --php=70"
   echo
-  outputComment "  ${0} --user=phpmyadmin --password='php79!@' --domain=phpmyadmin.php79.com --app=phpmyadmin --php=70"
+  outputComment "  ${0} --user=laravel55 --password='php79!@' --domain=laravel55.php79.net --app=laravel55 --php=70"
   echo
-  outputComment "  ${0} --user=octobercms --password='php79!@' --domain=octobercms.php79.com --app=laravel51 --php=70 --skip-install"
+  outputComment "  ${0} --user=octobercms --password='php79!@' --domain=octobercms.php79.net --app=laravel51 --php=70 --skip-install"
   echo
 
   echo
@@ -53,6 +53,9 @@ function show_usage
   echo -n "  "
   outputInfo  "--app"
   echo "       설치할 프로그램명은 ${STACK_ROOT}/apps 디렉토리안의 하위 디렉토리명과 일치해야 합니다."
+  echo "         laravel55  - Laravel 5.5"
+  echo "         laravel54  - Laravel 5.4"
+  echo "         laravel53  - Laravel 5.3"
   echo "         laravel52  - Laravel 5.2"
   echo "         laravel51  - Laravel 5.1"
   echo "         wordpress  - WordPress"
@@ -64,7 +67,7 @@ function show_usage
 
   echo -n "  "
   outputInfo  "--php"
-  echo "       PHP 버전을 [ 53 54 55 56 56 70 71 ] 형식으로 하나만 입력하세요."
+  echo "       PHP 버전을 [ 53 54 55 56 56 70 71 72 ] 형식으로 하나만 입력하세요."
   echo "                Tip) Laravel 은 70, 그누보드4 는 53 등 프로그램에 따라 적절히 선택하세요."
   echo "                     ./status.sh 명령을 통해 현재 서버에 설치된 PHP 버전을 확인할 수 있습니다."
   echo
@@ -165,7 +168,7 @@ if [ -z ${INPUT_PHP_VERSION} ]; then
 fi
 
 if [ ! -f "/usr/bin/php${INPUT_PHP_VERSION}" ]; then
-  input_abort "PHP ${INPUT_PHP_VERSION} 버전은 아직 설치되지 않았습니다.  입력 형식) 53 54 55 56 70"
+  input_abort "PHP ${INPUT_PHP_VERSION} 버전은 아직 설치되지 않았습니다.  입력 형식) 53 54 55 56 70 71 72"
 fi
 
 # nginx 중복 체크
