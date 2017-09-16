@@ -22,13 +22,13 @@ function show_usage
 {
   echo
   echo "Example:"
-  outputComment "  ${0} --user=phpmyadmin --password='php79!@' --domain=phpmyadmin.php79.net --app=phpmyadmin --php=70"
+  outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net --app=phpmyadmin --php=70"
   echo
-  outputComment "  ${0} --user=wordpress --password='php79!@' --domain=wordpress.php79.net --app=wordpress --php=70"
+  outputComment "  ${0} --user=wordpress --domain=wordpress.php79.net --app=wordpress --php=70"
   echo
-  outputComment "  ${0} --user=laravel55 --password='php79!@' --domain=laravel55.php79.net --app=laravel55 --php=70"
+  outputComment "  ${0} --user=laravel55 --domain=laravel55.php79.net --app=laravel55 --php=70"
   echo
-  outputComment "  ${0} --user=octobercms --password='php79!@' --domain=octobercms.php79.net --app=laravel51 --php=70 --skip-install"
+  outputComment "  ${0} --user=octobercms --domain=octobercms.php79.net --app=laravel51 --php=70 --skip-install"
   echo
 
   echo
@@ -41,7 +41,7 @@ function show_usage
 
   echo -n "  "
   outputInfo  "--password"
-  echo "  비밀번호.  특수문자 사용시엔 반드시 작은 따옴표(')로 감싸주어야 합니다."
+  echo "  (선택) 비밀번호.  미입력시 자동생성됩니다. 특수문자 사용시엔 반드시 작은 따옴표(')로 감싸주어야 합니다."
   echo
 
   echo -n "  "
@@ -74,7 +74,7 @@ function show_usage
 
   echo -n "  "
   outputInfo  "--skip-install"
-  echo "       계정 추가 및 nginx 설정까지만 진행하고, 앱 자동 설치(install.sh)는 생략합니다."
+  echo "       (선택) 계정 추가 및 nginx 설정까지만 진행하고, 앱 자동 설치(install.sh)는 생략합니다."
   echo "                Tip) 이미 제작된 소스로 설치하거나, 직접 소스를 설치하실 경우에 사용하세요."
   echo
 }
@@ -132,8 +132,11 @@ if [ -z ${INPUT_USER} ]; then
   input_abort "user 항목을 입력하세요."
 fi
 
+PASSWORD_GENERATED=0
 if [ -z ${INPUT_PASSWORD} ]; then
-  input_abort "password 항목을 입력하세요."
+  #input_abort "password 항목을 입력하세요."
+  INPUT_PASSWORD=$(scripts/password-generate.sh)
+  PASSWORD_GENERATED=1
 fi
 
 # 비밀번호도 입력받아야 하므로, 계정 추가 작업도 일괄 처리
@@ -247,10 +250,25 @@ else
   service nginx reload
 fi
 
+# 비밀번호 자동 생성시, ~/.my.cnf 생성
+if [ ${PASSWORD_GENERATED} = "1" ]; then
+  su - ${INPUT_USER} -c "printf \"[client]\\npassword=${INPUT_PASSWORD}\\n\" > ~/.my.cnf && chmod -v go-rwx ~/.my.cnf"
+fi
+
 echo
 outputInfo "앱 설치가 완료되었습니다.\n\n"
-outputInfo "  - Document root: /home/${INPUT_USER}/master/public\n"
-outputInfo "  - URL: http://${INPUT_DOMAIN}\n"
+outputInfo "  - Document root     : /home/${INPUT_USER}/master/public\n\n"
+
+outputInfo "  - SSH & DB User     : ${INPUT_USER}\n\n"
+
+if [ ${PASSWORD_GENERATED} = "1" ]; then
+  outputInfo "  - SSH & DB Password : ${INPUT_PASSWORD}\n"
+  echo "      (자동 생성된 비밀번호이며 \"/home/${INPUT_USER}/.my.cnf\" 파일에도 저장되었습니다.)"
+  echo
+fi
+
+outputInfo "  - URL               : http://${INPUT_DOMAIN}\n"
+echo "      (도메인이 없거나 연결 오류시, PC 에서 hosts 수정하여 테스트하는 방법 - http://www.php79.com/176)"
 echo
-echo "        Tip) 도메인이 없거나 연결되지 않았습니까?  PC 에서만 테스트하는 방법을 참고하세요. http://www.php79.com/176"
+
 echo

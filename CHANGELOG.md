@@ -4,6 +4,7 @@
 
 ### Added
 - app-install.sh 에서 --skip-install 옵션을 추가하여 앱 자동 설치만 제외할 수 있도록 개선함 https://github.com/php79/stack/issues/4
+- app-install.sh 에서 비밀번호 자동생성 기능 추가
 - app-install.sh 에서 Laravel 5.4, 5.5 설치 추가
 - PHP 7.2 설치 추가
 
