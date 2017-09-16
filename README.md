@@ -102,19 +102,19 @@ cd /root/stack
 
 ## 설치 내역
 
-- PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2
- - 단, CentOS 7 의 PHP 5.3 공식 저장소가 없어, 소스 컴파일 설치됩니다.
- - composer 설치
+### PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2
+- 단, CentOS 7 의 PHP 5.3 공식 저장소가 없어, 소스 컴파일 설치됩니다.
+- composer 설치
 
-- Nginx 1.12
+### Nginx 1.12
  - http://nginx.org/en/download.html 의 stable version 으로 설치됩니다. 
 
-- MariaDB 10.1
+### MariaDB 10.1
  - utf8mb4 인코딩 기본 지원.  (모바일에서 이모티콘 저장이 잘 됩니다.)
  - 사용 메모리 최적화 설정 지원. (기본 4G)
  - 초기 root 비밀번호 자동 생성
 
-- 서버 초기 셋팅
+### 서버 초기 셋팅
  - ntp 시간 자동 동기화.   (미래나 과거 날짜가 보여지는 문제는 이제 그만!)
  - SELinux 비활성화.  ([보다 강력한 보안을 위한 SELinux 사용 방법](https://lesstif.gitbooks.io/security-best-practice/content/selinux.html))
  - 타임존 설정.
