@@ -140,7 +140,7 @@ if [ -z ${INPUT_PASSWORD} ]; then
 fi
 
 # 비밀번호도 입력받아야 하므로, 계정 추가 작업도 일괄 처리
-./user-add.sh --user=${INPUT_USER} --password=${INPUT_PASSWORD}
+./user-add.sh --user=${INPUT_USER} --password=${INPUT_PASSWORD} --skip-guide-app-install
 if [ "${?}" != "0" ]; then
   abort "시스템 계정 추가 작업이 실패하였습니다."
 fi

@@ -56,6 +56,10 @@ else
       shift
       INPUT_PASSWORD="${i#*=}"
       ;;
+    --skip-guide-app-install=*)
+      shift
+      GUIDE_APP_INSTALL="${i#*=}"
+      ;;
     -h | --help )
       show_usage
       exit
@@ -116,7 +120,9 @@ else
 fi
 echo
 
-outputInfo "[ ${INPUT_USER} ] 시스템, 디비 계정이 생성되었습니다."
-echo
-echo "  앱 자동 설치) ./app-install.sh 으로 원하는 앱을 쉽게 설치하실 수 있습니다."
-echo "  앱 수동 설치) ./apps/laravel51/template-server.conf 예제를 참고하여,  /etc/nginx/conf.d/${INPUT_USER}.conf 설정 파일을 생성하면 됩니다."
+if [ -z ${GUIDE_APP_INSTALL} ]; then
+  outputInfo "[ ${INPUT_USER} ] 시스템, 디비 계정이 생성되었습니다."
+  echo
+  echo "  앱 자동 설치) ./app-install.sh 으로 원하는 앱을 쉽게 설치하실 수 있습니다."
+  echo "  앱 수동 설치) ./apps/laravel51/template-server.conf 예제를 참고하여,  /etc/nginx/conf.d/${INPUT_USER}.conf 설정 파일을 생성하면 됩니다."
+fi
