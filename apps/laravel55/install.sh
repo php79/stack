@@ -9,7 +9,7 @@ fi
 
 composer -v create-project laravel/laravel master "5.5.*"
 
-chmod -v -R a+rw master/storage/
+chmod -v -R a+rw master/storage/ master/bootstrap/cache/
 
 echo "Laravel 5.5 설치가 완료되었습니다."
 echo "  - 디비 정보 등 주요 설정 파일: master/.env"
