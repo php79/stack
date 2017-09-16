@@ -57,3 +57,11 @@ function notice
   echo
   echo
 }
+
+function error
+{
+  echo
+  outputError "Error) $@"
+  echo
+  echo
+}
