@@ -1,5 +1,10 @@
 # php79 stack 변경 내역
 
+## develop
+
+### Fixed
+- app-install.sh 에서 domain, app, php 잘못 지정시에도 user-add.sh가 먼저 실행되던 현상 개선하여 오류 가능성 낮춤
+
 ## v0.9.12 (2017-09-16)
 
 ### Added
