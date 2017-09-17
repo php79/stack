@@ -139,13 +139,6 @@ if [ -z ${INPUT_PASSWORD} ]; then
   PASSWORD_GENERATED=1
 fi
 
-# 비밀번호도 입력받아야 하므로, 계정 추가 작업도 일괄 처리
-./user-add.sh --user=${INPUT_USER} --password=${INPUT_PASSWORD} --skip-guide-app-install
-if [ "${?}" != "0" ]; then
-  abort "시스템 계정 추가 작업이 실패하였습니다."
-fi
-echo
-
 #if [ -z $(id -u ${INPUT_USER}) ]; then
 #  input_abort "존재하지 않는 user 입니다.  ./user-add.sh 로 먼저 추가하세요."
 #fi
@@ -200,6 +193,12 @@ if [ "${?}" != "0" ]; then
   abort "nginx 설정에 문제가 있습니다."
 fi
 
+# 비밀번호도 입력받아야 하므로, 계정 추가 작업도 일괄 처리
+./user-add.sh --user=${INPUT_USER} --password=${INPUT_PASSWORD} --skip-guide-app-install
+if [ "${?}" != "0" ]; then
+  abort "시스템 계정 추가 작업이 실패하였습니다."
+fi
+echo
 
 # nginx 설정 추가
 notice "nginx 에 새로운 사이트 설정을 추가합니다."
