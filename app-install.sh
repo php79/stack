@@ -139,15 +139,6 @@ if [ -z ${INPUT_PASSWORD} ]; then
   PASSWORD_GENERATED=1
 fi
 
-#if [ -z $(id -u ${INPUT_USER}) ]; then
-#  input_abort "존재하지 않는 user 입니다.  ./user-add.sh 로 먼저 추가하세요."
-#fi
-
-# TODO: /home 대신 실제 사용자의 HOME_DIR 을 읽어오도록 개선 필요
-if [ ! -d "/home/${INPUT_USER}" ]; then
-  input_abort "/home/${INPUT_USER} 디렉토리가 존재하지 않습니다.   실제 존재하는 시스템 계정인지 확인해주세요."
-fi
-
 if [ -z ${INPUT_DOMAIN} ]; then
   input_abort "domain 항목을 입력하세요."
 fi
@@ -199,6 +190,11 @@ if [ "${?}" != "0" ]; then
   abort "시스템 계정 추가 작업이 실패하였습니다."
 fi
 echo
+
+# TODO: /home 대신 실제 사용자의 HOME_DIR 을 읽어오도록 개선 필요
+if [ ! -d "/home/${INPUT_USER}" ]; then
+  input_abort "/home/${INPUT_USER} 디렉토리가 존재하지 않습니다.   실제 존재하는 시스템 계정인지 확인해주세요."
+fi
 
 # nginx 설정 추가
 notice "nginx 에 새로운 사이트 설정을 추가합니다."
