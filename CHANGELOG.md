@@ -2,6 +2,9 @@
 
 ## develop
 
+### Added
+- Let's Encrypt 설치, 인증서 발급, 인증서 자동 갱신 지원 
+
 ### Fixed
 - app-install.sh 에서 domain, app, php 잘못 지정시에도 user-add.sh가 먼저 실행되던 현상 개선하여 오류 가능성 낮춤
 
