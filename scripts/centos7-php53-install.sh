@@ -23,7 +23,7 @@ bzip2 wget
 
 # PHP - compile
 cd /usr/local/src/ \
-&& wget http://kr1.php.net/distributions/php-5.3.29.tar.bz2 -O php-5.3.29.tar.bz2 \
+&& wget http://php.net/distributions/php-5.3.29.tar.bz2 -O php-5.3.29.tar.bz2 \
 && tar jxfp php-5.3.29.tar.bz2 \
 && cd php-5.3.29 \
 && ./configure --prefix=/usr/local/php53 \
