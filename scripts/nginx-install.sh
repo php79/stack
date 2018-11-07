@@ -25,8 +25,10 @@ yum_install nginx
 sed -i 's/^user  nginx;/user  nobody;/g' /etc/nginx/nginx.conf
 
 WORKER_PROCESSES=$(($(grep -c processor /proc/cpuinfo)/2))
-notice "nginx worker_processes 를 CPU 개수의 절반인 [ ${WORKER_PROCESSES} ] 개로 설정하였습니다.\n설정 파일 경로) /etc/nginx/nginx.conf"
-sed -i "s/^worker_processes.*/worker_processes  ${WORKER_PROCESSES};/g" /etc/nginx/nginx.conf
+if [ ${WORKER_PROCESSES} -gt 1 ]; then
+  notice "nginx worker_processes 를 CPU 개수의 절반인 [ ${WORKER_PROCESSES} ] 개로 설정하였습니다.\n설정 파일 경로) /etc/nginx/nginx.conf"
+  sed -i "s/^worker_processes.*/worker_processes  ${WORKER_PROCESSES};/g" /etc/nginx/nginx.conf
+fi
 
 if [ ! -f /etc/nginx/conf.d/0-php79.conf ]; then
   notice "nginx 설정에서 gzip 이 기본 활성화되었습니다.\n설정 파일 경로) /etc/nginx/conf.d/0-php79.conf"

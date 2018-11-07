@@ -1,5 +1,30 @@
 # php79 stack 변경 내역
 
+## v0.9.12 (2017-09-16)
+
+### Added
+- app-install.sh 에서 --skip-install 옵션을 추가하여 앱 자동 설치만 제외할 수 있도록 개선함 https://github.com/php79/stack/issues/4
+- app-install.sh 에서 비밀번호 자동생성 기능 추가
+- 보안 강화를 위해, 비밀번호 자동생성 기본 길이를 12자에서 32자로 늘림
+- app-install.sh 에서 Laravel 5.4, 5.5 설치 추가
+- PHP 7.2 설치 추가
+
+### Fixed
+- status.sh 실행 속도 개선 및 서비스별 설정을 구분하여 표시하도록 개선 https://github.com/php79/stack/issues/22
+- 시간 동기화 명령인 ntpdate 실패(대부분 방화벽 차단, DNS 이슈)시에도 경고만 보여지고 설치가 진행되도록 개선 https://github.com/php79/stack/issues/31
+- cpu core 수가 2개 인 경우, nginx.conf 의 worker_processes 가 0 으로 잘못 설정되던 오류 수정
+- self-update.sh 실행전과 후에 nginx 설정 테스트 추가 https://github.com/php79/stack/issues/5
+
+## v0.9.11 (2017-02-01)
+
+### Added
+- PHP 7.1 설치 지원 https://github.com/php79/stack/issues/23
+ - 기존 사용자들이 PHP 7.1 만 추가로 설치하는 방법 - https://github.com/php79/stack/wiki/php-71-install
+- PHP 7.0 ionCube loader 설치 지원
+
+### Fixed
+- ionCube loader 설치후 php-fpm 재시작 지원 https://github.com/php79/stack/issues/17
+
 ## v0.9.10 (2016-10-02)
 
 ### Added

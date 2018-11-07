@@ -11,11 +11,11 @@ PHP_VERSION=${1}
 title "PHP ionCube loader 모듈을 설치합니다."
 
 if [ -z ${PHP_VERSION} ]; then
-  abort "설치할 PHP 버전을 입력하세요.  53, 54, 55, 56, 70(현재 미지원)"
+  abort "설치할 PHP 버전을 입력하세요.  53, 54, 55, 56, 70, 71(현재 미지원)"
 fi
 
-if [ ${PHP_VERSION} = "70" ]; then
-  abort "[2016-04-02] 기준, PHP 7.0 로더는 아직 출시되지 않았습니다."
+if [ ${PHP_VERSION} = "71" ]; then
+  abort "[2017-02-01] 기준, PHP 7.1 로더는 아직 출시되지 않았습니다."
 fi
 
 PHP_CLI="/usr/bin/php${PHP_VERSION}"
@@ -69,6 +69,12 @@ else
   # REMI 저장소 사용
   notice "REMI 저장소를 사용하여, php${PHP_VERSION}-php-ioncube-loader 모듈을 설치합니다."
   yum_install "php${PHP_VERSION}-php-ioncube-loader"
+  if [ $OS = "centos7" ]; then
+    systemctl restart "php${PHP_VERSION}-php-fpm"
+  else
+    service "php${PHP_VERSION}-php-fpm" restart
+  fi
+  notice "PHP FPM 서비스가 재시작되었습니다."
 fi
 
 if [ $(extension_loaded) = "1" ]; then

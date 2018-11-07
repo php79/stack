@@ -12,9 +12,12 @@ welcome_short
 
 # 주요 설정 파일
 title "php79 stack 에서 추가된 주요 설정 파일들"
-find /etc/ /opt/ /usr/local/ -name '*php79.ini'|sort
-find /etc/ -name '*php79.conf'
-find /etc/ -name '*php79.cnf'
+outputInfo "- php.ini\n"
+find /etc/php.d /etc/opt/remi/php*/php.d /opt/remi/php*/root/etc/php.d /usr/local/php53/etc/php.d -name '*php79.ini' 2> /dev/null|sort
+outputInfo "- nginx\n"
+find /etc/nginx/conf.d/ -name '*php79.conf' 2> /dev/null
+outputInfo "- MariaDB\n"
+find /etc/my.cnf.d -name '*php79.cnf' 2> /dev/null
 echo
 outputInfo "  * php.d/z-php79.ini, my.cnf.d/z-php79.cnf 파일들은 파일 이름순 정렬로 마지막에 로딩됩니다."
 echo
