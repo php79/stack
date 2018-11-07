@@ -15,6 +15,13 @@ max_allowed_packet = 32M
 slow_query_log
 long_query_time = 2
 
+# FullText index 에서 2자 검색 지원(기본 3자 이상)
+innodb_ft_min_token_size=2
+ft_min_word_len = 2
+
+# 바이너리 로그가 과도하게 늘어나지 않도록, 보관 기간(일)을 제한하면 오래된 로그가 자동 삭제됩니다.
+#expire_logs_days = 180
+
 [mysqldump]
 default-character-set=utf8mb4
 max_allowed_packet = 32M
