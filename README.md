@@ -110,7 +110,7 @@ cd /root/stack
 ### Nginx 1.*
  - http://nginx.org/en/download.html 의 stable version 으로 설치됩니다. 
 
-### MariaDB 10.1
+### MariaDB 10.3
  - utf8mb4 인코딩 기본 지원.  (모바일에서 이모티콘 저장이 잘 됩니다.)
  - 사용 메모리 최적화 설정 지원. (기본 4G)
  - 초기 root 비밀번호 자동 생성
