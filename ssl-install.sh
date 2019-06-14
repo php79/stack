@@ -174,7 +174,7 @@ echo
 outputComment "## [3/3] nginx 사이트 단위 설정 마지막에 SSL 설정 추가\n\n"
 if [ ${INPUT_SKIP_NGINX} != "1" ]; then
   if [ ! -f ${LETSENCRYPT_PEM} ]; then
-    abort "발급된 인증서가 없어서 nginx 설정을 중단합니다."
+    abort "발급된 인증서가 없어서 nginx 설정을 중단합니다. -> ${LETSENCRYPT_PEM}"
   fi
 
   grep -P 'listen(.)*ssl' ${NGINX_USER_CONF}
