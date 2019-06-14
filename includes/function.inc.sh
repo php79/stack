@@ -143,6 +143,10 @@ function options
     printf "  - Install ${GREEN}Nginx 1.10${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
   fi
 
+  if [ $LETSENCRYPT = "1" ]; then
+    printf "  - Install ${GREEN}Let's Encrypt tools${NO_COLOR} (certbot-auto + configs) / https://certbot.eff.org/\n"
+  fi
+
   if [ $MARIADB = "1" ]; then
     printf "  - Install ${GREEN}MariaDB 10.1${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
 

@@ -43,6 +43,11 @@ if [ $NGINX = "1" ]; then
   cmd_once "scripts/nginx-install.sh"
 fi
 
+### Let's Encrypt 자동화툴
+if [ $LETSENCRYPT = "1" ]; then
+  cmd_once "scripts/letsencrypt-install.sh"
+fi
+
 ### PHP
 PHP_INSTALLED=
 if [ $PHP53 = "1" ]; then
