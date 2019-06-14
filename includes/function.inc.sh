@@ -102,6 +102,10 @@ function options
 {
   printf "  - Install ${GREEN}EPEL repo${NO_COLOR} / http://fedoraproject.org/wiki/EPEL\n"
 
+  if [ $PHP73 = "1" ]; then
+    printf "  - Install ${GREEN}PHP 7.3${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+  fi
+
   if [ $PHP72 = "1" ]; then
     printf "  - Install ${GREEN}PHP 7.2${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
   fi
