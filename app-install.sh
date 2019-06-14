@@ -267,7 +267,7 @@ fi
 # SSL 인증서 발급 및 nginx SSL 설정 추가 - 실패시에도 설치 완료 화면 표시
 if [ ${INPUT_SSL} = "1" ]; then
    if [ -f "/usr/bin/certbot-auto" ]; then
-   ${STACK_ROOT}/ssl-install.sh --user=${INPUT_USER} --domain=${INPUT_DOMAIN}
+     ${STACK_ROOT}/ssl-install.sh --user=${INPUT_USER} --domain=${INPUT_DOMAIN}
    else
      outputError "Let's Encrypt 자동화툴이 설치되지 않았습니다. SSL 인증서 발급을 생략합니다."
    fi
