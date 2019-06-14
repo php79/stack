@@ -107,7 +107,7 @@ cd /root/stack
 - 단, CentOS 7 의 PHP 5.3 공식 저장소가 없어, 소스 컴파일 설치됩니다.
 - composer 설치
 
-### Nginx 1.12
+### Nginx 1.*
  - http://nginx.org/en/download.html 의 stable version 으로 설치됩니다. 
 
 ### MariaDB 10.1

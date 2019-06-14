@@ -144,7 +144,7 @@ function options
   echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
 
   if [ $NGINX = "1" ]; then
-    printf "  - Install ${GREEN}Nginx 1.10${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
+    printf "  - Install ${GREEN}Nginx 1.*${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
   fi
 
   if [ $LETSENCRYPT = "1" ]; then
