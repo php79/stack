@@ -1,6 +1,6 @@
 # php79 stack 변경 내역
 
-## develop
+## v1.0.0 (2019-06-14)
 
 ### Added
 - Let's Encrypt 설치, 인증서 발급, 인증서 자동 갱신 지원 (ssl-install.sh)
