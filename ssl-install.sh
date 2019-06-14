@@ -120,10 +120,18 @@ if [ ${INPUT_SKIP_NGINX} != "1" ]; then
   fi
 fi
 
+# nginx 설정 백업  (문자열 치환이 들어가므로 유실 가능성 고려해 백업)
+NGINX_BACKUP_DIR="/etc/nginx/conf.d/backups"
+if [ ! -d ${NGINX_BACKUP_DIR} ]; then
+  mkdir ${NGINX_BACKUP_DIR}
+fi
+outputComment "# nginx 설정 변경전, 하위 backups 디렉토리로 설정을 백업합니다.\n"
+cp -av ${NGINX_USER_CONF} "${NGINX_BACKUP_DIR}/${INPUT_USER}_$(date +%Y%m%d"_"%H%M%S)"
+echo
 
 outputComment "## [1/3] nginx - Let's Encrypt 인증용 디렉토리 접근 추가\n\n"
 if [ ${INPUT_SKIP_NGINX} != "1" ]; then
-  WELL_KNOWN_CONF=/etc/letsencrypt/php79/well-known.conf
+  WELL_KNOWN_CONF="/etc/letsencrypt/php79/well-known.conf"
   grep ${WELL_KNOWN_CONF} ${NGINX_USER_CONF}
   if [ "${?}" != "1" ]; then
     outputComment "# nginx 에 다음 설정이 이미 추가되었으므로 생략합니다.\n    include ${WELL_KNOWN_CONF}\n\n"
