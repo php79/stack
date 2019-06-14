@@ -8,6 +8,10 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 
 title "Let's Encrypt 자동화툴을 설치합니다."
 
+if [ -f "/usr/bin/certbot-auto" ]; then
+  abort "이미 /usr/bin/certbot-auto 이 설치되어 있으므로 중단합니다.";
+fi
+
 notice "[1/5] 인증툴인 certbot-auto 를 설치합니다. - https://certbot.eff.org/"
 cd /usr/bin \
 && wget https://dl.eff.org/certbot-auto \
