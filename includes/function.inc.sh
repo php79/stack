@@ -116,10 +116,12 @@ function options
 
   if [ $PHP70 = "1" ]; then
     printf "  - Install ${GREEN}PHP 7.0${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    printf "      ${YELLOW}PHP 7.0 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
   if [ $PHP56 = "1" ]; then
     printf "  - Install ${GREEN}PHP 5.6${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    printf "      ${YELLOW}PHP 5.6 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
   if [ $PHP55 = "1" ]; then
