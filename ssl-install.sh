@@ -230,4 +230,4 @@ if [ ${INPUT_SKIP_NGINX} != "1" ]; then
 fi
 
 outputInfo "  - SSL 인증서 확인      : curl -Iv https://${INPUT_DOMAIN}\n\n"
-curl -Iv "https://${INPUT_DOMAIN}"
+sleep 1; curl -Iv "https://${INPUT_DOMAIN}"
