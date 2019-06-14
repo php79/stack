@@ -22,13 +22,13 @@ function show_usage
 
   echo
   echo "Example:"
-  outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net --app=phpmyadmin --php=70"
+  outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net --app=phpmyadmin --php=70 --ssl"
   echo
   outputComment "  ${0} --user=wordpress --domain=wordpress.php79.net --app=wordpress --php=70"
   echo
-  outputComment "  ${0} --user=laravel55 --domain=laravel55.php79.net --app=laravel55 --php=70"
+  outputComment "  ${0} --user=laravel55 --domain=laravel55.php79.net --app=laravel55 --php=70 --ssl"
   echo
-  outputComment "  ${0} --user=octobercms --domain=octobercms.php79.net --app=laravel51 --php=70 --skip-install"
+  outputComment "  ${0} --user=octobercms --domain=octobercms.php79.net --app=laravel51 --php=70 --ssl --skip-install"
   echo
 
   echo
@@ -77,6 +77,14 @@ function show_usage
   echo "       (선택) 계정 추가 및 nginx 설정까지만 진행하고, 앱 자동 설치(install.sh)는 생략합니다."
   echo "                Tip) 이미 제작된 소스로 설치하거나, 직접 소스를 설치하실 경우에 사용하세요."
   echo
+
+  echo -n "  "
+  outputInfo  "--ssl"
+  echo "       (선택) Let's Encrypt 자동화툴을 사용해서, SSL 인증서 발급을 함께 진행합니다."
+  echo "                주의) 인증서를 발급 받은 도메인의 IP가 현재 서버로 지정되어 있어야 인증서 발급이 가능합니다."
+  echo "                      앱 설치가 완료된 마지막 단계에서 발급을 시도하므로, 발급 실패시에도 앱 사용에는 문제없습니다."
+  echo "                      앱 설치후에도 ssl-install.sh 명령을 통해 별도 발급 가능합니다."
+  echo
 }
 
 function input_abort
@@ -92,6 +100,7 @@ if [ -z ${1} ]; then
   exit
 else
   INPUT_SKIP_INSTALL=0
+  INPUT_SSL=0
   for i in "${@}"
   do
     case $i in
@@ -118,6 +127,10 @@ else
     --skip-install)
       shift
       INPUT_SKIP_INSTALL=1
+      ;;
+    --ssl)
+      shift
+      INPUT_SSL=1
       ;;
     -h | --help )
       show_usage
@@ -249,6 +262,15 @@ fi
 # 비밀번호 자동 생성시, ~/.my.cnf 생성
 if [ ${PASSWORD_GENERATED} = "1" ]; then
   su - ${INPUT_USER} -c "printf \"[client]\\npassword=${INPUT_PASSWORD}\\n\" > ~/.my.cnf && chmod go-rwx ~/.my.cnf"
+fi
+
+# SSL 인증서 발급 및 nginx SSL 설정 추가
+if [ ${INPUT_SSL} = "1" ]; then
+   if [ -f "/usr/bin/certbot-auto" ]; then
+    cmd "${STACK_ROOT}/ssl-install.sh --user=${INPUT_USER} --domain=${INPUT_DOMAIN}"
+   else
+     outputError "Let's Encrypt 자동화툴이 설치되지 않았습니다. SSL 인증서 발급을 생략합니다."
+   fi
 fi
 
 echo
