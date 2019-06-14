@@ -130,7 +130,7 @@ cd /root/stack
 - CentOS 7 + firewalld 설정: https://github.com/php79/stack/wiki/firewall
 - CentOS 6 + iptables 설정: http://www.php79.com/59
 
-> 방화벽 설정은 자동 처리하지 않으므로, 위 설정 방법대로 수작업이 필요합니다.
+> 방화벽 설정은 stack 에서 설치/시작/종료하지 않습니다.
 
 > 기본 방화벽 정책은 SSH 22 포트만 허용된 상태입니다.  웹서비스 허용을 위해선 반드시 방화벽 작업이 필요합니다.
 
