@@ -17,7 +17,7 @@ else
 fi
 
 if [ ${?} != "0" ]; then
-  /usr/bin/logger -t 'php79-stack' -p 'local0.err' "certbot-auto-renew-cron.sh returned error code ${?}"
+  /usr/bin/logger -t 'php79-stack' -p 'local0.err' "php79-certbot-auto-renew returned error code ${?}"
 else
-  /usr/bin/logger -t 'php79-stack' "certbot-auto-renew-cron.sh succeeded."
+  /usr/bin/logger -t 'php79-stack' "php79-certbot-auto-renew succeeded."
 fi
