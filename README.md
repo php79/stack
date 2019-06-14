@@ -1,6 +1,6 @@
 # php79 stack
 
-> PHP 5.3 ~ 7.2 + Nginx + Let's Encrypt + MariaDB + 앱들을 자동 설치합니다.
+> PHP 5.3 ~ 7.3 + Nginx + Let's Encrypt + MariaDB + 앱들을 자동 설치합니다.
 
 
 ## 특징
@@ -8,7 +8,7 @@
 - 쉽고 빠른 설치, 운영, 업데이트까지 고려한 설계
 - 쉬운 업데이트 지원.  (공식+인기 저장소를 사용하여 `yum update` 만으로 완료)
 - 기본 설정 파일의 수정을 최소화하여 혼란 예방.  (주요 설정 내용을 z-php79.ini 형태의 외부 파일로 분리)
-- PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2 7가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
+- PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3 8가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
 - Laravel 5.1~5.5, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치 지원.  ([app-install.sh](app-install.sh))
 - 시스템 계정, 디비 계정 자동 생성 지원.  ([user-add.sh](user-add.sh))
 - Let's Encrypt 무료 인증서 자동 발급 및 갱신 지원.    ([ssl-install.sh](ssl-install.sh))
@@ -103,7 +103,7 @@ cd /root/stack
 
 ## 설치 내역
 
-### PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2
+### PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3
 - 단, CentOS 7 의 PHP 5.3 공식 저장소가 없어, 소스 컴파일 설치됩니다.
 - composer 설치
 
