@@ -94,7 +94,7 @@ function welcome_short
 function welcome
 {
   welcome_short
-  echo "  * PHP 5.3-7.2 + Nginx + MariaDB installer"
+  echo "  * PHP 5.3-7.2 + Nginx + Let's Encrypt + MariaDB installer"
   echo
 }
 
