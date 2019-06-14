@@ -1,6 +1,6 @@
 # php79 stack
 
-> PHP 5.3 ~ 7.2 + Nginx + MariaDB + 앱들을 자동 설치합니다.
+> PHP 5.3 ~ 7.2 + Nginx + Let's Encrypt + MariaDB + 앱들을 자동 설치합니다.
 
 
 ## 특징
@@ -11,6 +11,7 @@
 - PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2 7가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
 - Laravel 5.1~5.5, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치 지원.  ([app-install.sh](app-install.sh))
 - 시스템 계정, 디비 계정 자동 생성 지원.  ([user-add.sh](user-add.sh))
+- Let's Encrypt 무료 인증서 자동 발급 및 갱신 지원.    ([ssl-install.sh](ssl-install.sh))
 
 > 요약: 더 이상 설치에 시간을 낭비하지 마시고, 여러분의 코딩과 업무에 집중하세요! :)
 
@@ -55,10 +56,10 @@ cd /root/stack
 ### app-install.sh
 
 - Laravel 5.1~55, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치를 지원합니다.
- - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치까지 모두 한 번에 이루어 집니다.
+ - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치, 무료 SSL 발급까지 모두 한 번에 이루어 집니다.
 
 ```bash
-./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=70
+./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=70 --ssl
 ```
  
 ![app-install.sh](https://www.php79.com/wp-content/uploads/2017/09/2017-09-16-162611.png)
