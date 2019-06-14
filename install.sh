@@ -43,6 +43,11 @@ if [ $NGINX = "1" ]; then
   cmd_once "scripts/nginx-install.sh"
 fi
 
+### Let's Encrypt 자동화툴
+if [ $LETSENCRYPT = "1" ]; then
+  cmd_once "scripts/letsencrypt-install.sh"
+fi
+
 ### PHP
 PHP_INSTALLED=
 if [ $PHP53 = "1" ]; then
@@ -89,6 +94,12 @@ if [ $PHP72 = "1" ]; then
   cmd_once "scripts/remi-repo-install.sh"
   cmd_once "scripts/php7-remi-install.sh 72"
   PHP_INSTALLED=72
+fi
+
+if [ $PHP73 = "1" ]; then
+  cmd_once "scripts/remi-repo-install.sh"
+  cmd_once "scripts/php7-remi-install.sh 73"
+  PHP_INSTALLED=73
 fi
 
 ### /usr/bin/php link

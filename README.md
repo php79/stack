@@ -1,6 +1,6 @@
 # php79 stack
 
-> PHP 5.3 ~ 7.2 + Nginx + MariaDB + 앱들을 자동 설치합니다.
+> PHP 5.3 ~ 7.3 + Nginx + Let's Encrypt + MariaDB + 앱들을 자동 설치합니다.
 
 
 ## 특징
@@ -8,9 +8,10 @@
 - 쉽고 빠른 설치, 운영, 업데이트까지 고려한 설계
 - 쉬운 업데이트 지원.  (공식+인기 저장소를 사용하여 `yum update` 만으로 완료)
 - 기본 설정 파일의 수정을 최소화하여 혼란 예방.  (주요 설정 내용을 z-php79.ini 형태의 외부 파일로 분리)
-- PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2 7가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
+- PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3 8가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
 - Laravel 5.1~5.5, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치 지원.  ([app-install.sh](app-install.sh))
 - 시스템 계정, 디비 계정 자동 생성 지원.  ([user-add.sh](user-add.sh))
+- [Let's Encrypt - 무료 SSL 인증서 발급 및 갱신 지원](https://github.com/php79/stack/wiki/letsencrypt)  ([ssl-install.sh](ssl-install.sh))
 
 > 요약: 더 이상 설치에 시간을 낭비하지 마시고, 여러분의 코딩과 업무에 집중하세요! :)
 
@@ -32,7 +33,7 @@ cd /root/ \
 && ./install.sh
 ```
 
-- 기본 설치 옵션은 **PHP 7.0** + Nginx + MariaDB 입니다.
+- 기본 설치 옵션은 **PHP 7.1** + Nginx + Let's Encrypt + MariaDB 입니다.
  - 설치 화면에서 'y'만 누르면 바로 설치가 진행됩니다.
 
 ![PHP 7.0](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113049.png)
@@ -41,7 +42,7 @@ cd /root/ \
  - 그리고 `stack.conf` 파일을 열어 `PHP53=1` 으로 활성화시켜주고, 다시 `./install.sh` 를 실행하면 됩니다.
 
 - `./install.sh` 는 중복 실행해도 문제없도록 설계되었습니다.
- - 따라서 PHP 7.0 만 설치했다가 차후, PHP 5.3 , 5.4 등을 추가로 설치하실 수 있습니다.
+ - 따라서 PHP 7.1 만 설치했다가 차후, PHP 5.3 , 5.4 등을 추가로 설치하실 수 있습니다.
 
 
 ## 주요 명령
@@ -55,10 +56,10 @@ cd /root/stack
 ### app-install.sh
 
 - Laravel 5.1~55, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치를 지원합니다.
- - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치까지 모두 한 번에 이루어 집니다.
+ - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치, 무료 SSL 발급까지 모두 한 번에 이루어 집니다.
 
 ```bash
-./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=70
+./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=71 --ssl
 ```
  
 ![app-install.sh](https://www.php79.com/wp-content/uploads/2017/09/2017-09-16-162611.png)
@@ -102,14 +103,14 @@ cd /root/stack
 
 ## 설치 내역
 
-### PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2
+### PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3
 - 단, CentOS 7 의 PHP 5.3 공식 저장소가 없어, 소스 컴파일 설치됩니다.
 - composer 설치
 
-### Nginx 1.12
+### Nginx 1.*
  - http://nginx.org/en/download.html 의 stable version 으로 설치됩니다. 
 
-### MariaDB 10.1
+### MariaDB 10.3
  - utf8mb4 인코딩 기본 지원.  (모바일에서 이모티콘 저장이 잘 됩니다.)
  - 사용 메모리 최적화 설정 지원. (기본 4G)
  - 초기 root 비밀번호 자동 생성
@@ -123,11 +124,11 @@ cd /root/stack
  - 서버 필수 유틸과 점검툴들 설치. (선택가능, rsync wget openssh-clients bind-utils git telnet nc vim-enhanced man
     ntsysv htop glances iotop iftop sysstat strace lsof mc lrzsz zip unzip bzip2)
 
-
-## 방화벽 설정은 지원하지 않으므로, 수작업이 필요합니다.
-
-- iptables 설정 방법: http://www.php79.com/59
-- TODO: firewalld 설정 방법: (준비중입니다.)
+## 방화벽 설정 안내
+- CentOS 7 + firewalld 설정: https://github.com/php79/stack/wiki/firewall
+- CentOS 6 + iptables 설정: http://www.php79.com/59
+> 방화벽 설정은 stack 에서 관리하지 않으니, 위 설정 방법대로 설정해주셔야 합니다.
+> 기본 방화벽 정책은 SSH 22 포트만 허용되므로, 웹서비스는 추가로 허용해주셔야 합니다.
 
 ## PHP 확장 모듈 추가 설치
 

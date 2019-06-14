@@ -1,5 +1,18 @@
 # php79 stack 변경 내역
 
+## v1.0.0 (2019-06-14)
+
+### Added
+- Let's Encrypt 설치, 인증서 발급, 인증서 자동 갱신 지원 (ssl-install.sh)
+- PHP 7.3 설치 추가 
+- PHP 기본 설치 버전을 7.0 에서 7.1 로 변경
+- PHP 7.0 이상 기본 확장 모듈 설치시 bcmath, pecl-zip 기본 지원
+- MariaDB 10.1 에서 10.3 으로 기본 설치 변경. [기존 사용자들의 업그레이드 안내](https://github.com/php79/stack/issues/48#issuecomment-502039804)
+- Laravel 5.6 ~ 5.8 설치 추가
+
+### Fixed
+- app-install.sh 에서 domain, app, php 잘못 지정시에도 user-add.sh가 먼저 실행되던 현상 개선하여 오류 가능성 낮춤
+
 ## v0.9.12 (2017-09-16)
 
 ### Added
