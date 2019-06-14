@@ -11,7 +11,7 @@
 - PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3 8가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
 - Laravel 5.1~5.5, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치 지원.  ([app-install.sh](app-install.sh))
 - 시스템 계정, 디비 계정 자동 생성 지원.  ([user-add.sh](user-add.sh))
-- Let's Encrypt 무료 인증서 자동 발급 및 갱신 지원.    ([ssl-install.sh](ssl-install.sh))
+- [Let's Encrypt - 무료 SSL 인증서 발급 및 갱신 지원](https://github.com/php79/stack/wiki/letsencrypt)  ([ssl-install.sh](ssl-install.sh))
 
 > 요약: 더 이상 설치에 시간을 낭비하지 마시고, 여러분의 코딩과 업무에 집중하세요! :)
 
