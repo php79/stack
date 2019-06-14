@@ -124,16 +124,11 @@ cd /root/stack
  - 서버 필수 유틸과 점검툴들 설치. (선택가능, rsync wget openssh-clients bind-utils git telnet nc vim-enhanced man
     ntsysv htop glances iotop iftop sysstat strace lsof mc lrzsz zip unzip bzip2)
 
-
 ## 방화벽 설정 안내
-
 - CentOS 7 + firewalld 설정: https://github.com/php79/stack/wiki/firewall
 - CentOS 6 + iptables 설정: http://www.php79.com/59
-
-> 방화벽 설정은 stack 에서 설치/시작/종료하지 않습니다.
-
-> 기본 방화벽 정책은 SSH 22 포트만 허용된 상태입니다.  웹서비스 허용을 위해선 반드시 방화벽 작업이 필요합니다.
-
+> 방화벽 설정은 stack 에서 관리하지 않으니, 위 설정 방법대로 설정해주셔야 합니다.
+> 기본 방화벽 정책은 SSH 22 포트만 허용되므로, 웹서비스는 추가로 허용해주셔야 합니다.
 
 ## PHP 확장 모듈 추가 설치
 
