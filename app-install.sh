@@ -22,13 +22,13 @@ function show_usage
 
   echo
   echo "Example:"
-  outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net --app=phpmyadmin --php=70 --ssl"
+  outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net --app=phpmyadmin --php=71 --ssl"
   echo
-  outputComment "  ${0} --user=wordpress --domain=wordpress.php79.net --app=wordpress --php=70"
+  outputComment "  ${0} --user=wordpress --domain=wordpress.php79.net --app=wordpress --php=71"
   echo
-  outputComment "  ${0} --user=laravel55 --domain=laravel55.php79.net --app=laravel55 --php=70 --ssl"
+  outputComment "  ${0} --user=laravel55 --domain=laravel55.php79.net --app=laravel55 --php=71 --ssl"
   echo
-  outputComment "  ${0} --user=octobercms --domain=octobercms.php79.net --app=laravel51 --php=70 --ssl --skip-install"
+  outputComment "  ${0} --user=octobercms --domain=octobercms.php79.net --app=laravel51 --php=71 --ssl --skip-install"
   echo
 
   echo
@@ -67,7 +67,7 @@ function show_usage
 
   echo -n "  "
   outputInfo  "--php"
-  echo "       PHP 버전을 [ 53 54 55 56 56 70 71 72 ] 형식으로 하나만 입력하세요."
+  echo "       PHP 버전을 [ 53 54 55 56 56 70 71 72 73 ] 형식으로 하나만 입력하세요."
   echo "                Tip) Laravel 은 70, 그누보드4 는 53 등 프로그램에 따라 적절히 선택하세요."
   echo "                     ./status.sh 명령을 통해 현재 서버에 설치된 PHP 버전을 확인할 수 있습니다."
   echo
@@ -169,7 +169,7 @@ if [ -z ${INPUT_PHP_VERSION} ]; then
 fi
 
 if [ ! -f "/usr/bin/php${INPUT_PHP_VERSION}" ]; then
-  input_abort "PHP ${INPUT_PHP_VERSION} 버전은 아직 설치되지 않았습니다.  입력 형식) 53 54 55 56 70 71 72"
+  input_abort "PHP ${INPUT_PHP_VERSION} 버전은 아직 설치되지 않았습니다.  입력 형식) 53 54 55 56 70 71 72 73"
 fi
 
 # nginx 중복 체크

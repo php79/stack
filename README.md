@@ -33,7 +33,7 @@ cd /root/ \
 && ./install.sh
 ```
 
-- 기본 설치 옵션은 **PHP 7.0** + Nginx + MariaDB 입니다.
+- 기본 설치 옵션은 **PHP 7.1** + Nginx + Let's Encrypt + MariaDB 입니다.
  - 설치 화면에서 'y'만 누르면 바로 설치가 진행됩니다.
 
 ![PHP 7.0](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113049.png)
@@ -42,7 +42,7 @@ cd /root/ \
  - 그리고 `stack.conf` 파일을 열어 `PHP53=1` 으로 활성화시켜주고, 다시 `./install.sh` 를 실행하면 됩니다.
 
 - `./install.sh` 는 중복 실행해도 문제없도록 설계되었습니다.
- - 따라서 PHP 7.0 만 설치했다가 차후, PHP 5.3 , 5.4 등을 추가로 설치하실 수 있습니다.
+ - 따라서 PHP 7.1 만 설치했다가 차후, PHP 5.3 , 5.4 등을 추가로 설치하실 수 있습니다.
 
 
 ## 주요 명령
@@ -59,7 +59,7 @@ cd /root/stack
  - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치, 무료 SSL 발급까지 모두 한 번에 이루어 집니다.
 
 ```bash
-./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=70 --ssl
+./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=71 --ssl
 ```
  
 ![app-install.sh](https://www.php79.com/wp-content/uploads/2017/09/2017-09-16-162611.png)
