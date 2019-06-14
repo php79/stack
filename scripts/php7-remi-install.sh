@@ -15,7 +15,7 @@ fi
 yum_install php$1-php-cli php$1-php-fpm \
 php$1-php-common php$1-php-pdo php$1-php-mysqlnd php$1-php-mbstring php$1-php-mcrypt \
 php$1-php-opcache php$1-php-xml php$1-php-pecl-imagick php$1-php-gd php$1-php-fileinfo \
-php$1-php-pecl-mysql php$1-php-pecl-zip
+php$1-php-pecl-mysql php$1-php-pecl-zip php$1-php-bcmath
 
 if [ ! -f "/etc/opt/remi/php${1}/php.d/z-php79.ini" ]; then
   notice "PHP 권장 설정이 추가되었습니다.\n설정 파일 경로) /etc/opt/remi/php${1}/php.d/z-php79.ini"
