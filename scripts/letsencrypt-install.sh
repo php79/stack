@@ -33,6 +33,8 @@ fi
 notice "[3/5] 인증용 웹문서 디렉토리를 생성합니다."
 if [ ! -d /var/www/letsencrypt/.well-known ]; then
   mkdir -p /var/www/letsencrypt/.well-known
+else
+  outputComment "  (생략) /var/www/letsencrypt/.well-known 디렉토리가 이미 존재합니다.\n"
 fi
 
 notice "[4/5] 암호화 강화를 위한 Diffie-Hellman parameters 를 생성합니다."
