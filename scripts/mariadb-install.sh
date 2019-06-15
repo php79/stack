@@ -9,7 +9,7 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 title "MariaDB 10.3 을 설치합니다."
 
 
-yum_install MariaDB-server MariaDB-client MariaDB-common MariaDB-compat
+yum_install MariaDB-server MariaDB-client MariaDB-common MariaDB-compat MariaDB-shared
 
 # 메모리 선택 -> MariaDB 10.3 부터 미지원
 #if [ ${1} = "4G" ]; then
