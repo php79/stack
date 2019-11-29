@@ -6,7 +6,7 @@
 STACK_ROOT=$( dirname $( cd "$( dirname "$0" )" && pwd ) )
 source "${STACK_ROOT}/includes/function.inc.sh"
 
-title "MariaDB 10.3 을 설치합니다."
+title "MariaDB 10.4 을 설치합니다."
 
 
 yum_install MariaDB-server MariaDB-client MariaDB-common MariaDB-compat MariaDB-shared
