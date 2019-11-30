@@ -45,4 +45,5 @@ else
 fi
 
 # secure installation
-echo -e "\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation
+#echo -e "\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation    # <= 10.3
+echo -e "\nn\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation  # >= 10.4  https://github.com/php79/stack/issues/58
