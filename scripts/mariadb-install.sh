@@ -6,10 +6,10 @@
 STACK_ROOT=$( dirname $( cd "$( dirname "$0" )" && pwd ) )
 source "${STACK_ROOT}/includes/function.inc.sh"
 
-title "MariaDB 10.3 을 설치합니다."
+title "MariaDB 10.4 을 설치합니다."
 
 
-yum_install MariaDB-server MariaDB-client MariaDB-common MariaDB-compat
+yum_install MariaDB-server MariaDB-client MariaDB-common MariaDB-compat MariaDB-shared
 
 # 메모리 선택 -> MariaDB 10.3 부터 미지원
 #if [ ${1} = "4G" ]; then
@@ -45,4 +45,5 @@ else
 fi
 
 # secure installation
-echo -e "\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation
+#echo -e "\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation    # <= 10.3
+echo -e "\nn\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation  # >= 10.4  https://github.com/php79/stack/issues/58

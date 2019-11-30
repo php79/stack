@@ -160,7 +160,7 @@ echo
 
 
 outputComment "## [2/3] certbot-auto 로 SSL 인증서 발급 테스트후, 실제 인증서 발급\n\n"
-if [ ${LETSENCRYPT_EMAIL} = "" ]; then
+if [ -z ${LETSENCRYPT_EMAIL} ]; then
   abort "stack.conf 에서 'LETSENCRYPT_EMAIL=이메일' 설정에 관리용 이메일 주소를 입력해주세요."
 fi
 

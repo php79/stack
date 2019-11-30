@@ -94,13 +94,17 @@ function welcome_short
 function welcome
 {
   welcome_short
-  echo "  * PHP 5.3-7.3 + Nginx + Let's Encrypt + MariaDB installer"
+  echo "  * PHP 5.3-7.4 + Nginx + Let's Encrypt + MariaDB installer"
   echo
 }
 
 function options
 {
   printf "  - Install ${GREEN}EPEL repo${NO_COLOR} / http://fedoraproject.org/wiki/EPEL\n"
+
+  if [ $PHP74 = "1" ]; then
+    printf "  - Install ${GREEN}PHP 7.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+  fi
 
   if [ $PHP73 = "1" ]; then
     printf "  - Install ${GREEN}PHP 7.3${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
@@ -154,7 +158,7 @@ function options
   fi
 
   if [ $MARIADB = "1" ]; then
-    printf "  - Install ${GREEN}MariaDB 10.3${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
+    printf "  - Install ${GREEN}MariaDB 10.4${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
 
     if [ ! -z $MARIADB_RAM ]; then
       printf "      Use memory config : ${YELLOW}${MARIADB_RAM}${NO_COLOR}\n"
