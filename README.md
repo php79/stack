@@ -33,7 +33,7 @@ cd /root/ \
 && ./install.sh
 ```
 
-- 기본 설치 옵션은 **PHP 7.1** + Nginx + Let's Encrypt + MariaDB 입니다.
+- 기본 설치 옵션은 **PHP 7.4** + Nginx + Let's Encrypt + MariaDB 입니다.
  - 설치 화면에서 'y'만 누르면 바로 설치가 진행됩니다.
 
 ![PHP 7.0](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113049.png)
