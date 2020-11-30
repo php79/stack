@@ -94,13 +94,25 @@ function welcome_short
 function welcome
 {
   welcome_short
-  echo "  * PHP 5.3-7.2 + Nginx + MariaDB installer"
+  echo "  * PHP 5.3-8.0 + Nginx + Let's Encrypt + MariaDB installer"
   echo
 }
 
 function options
 {
   printf "  - Install ${GREEN}EPEL repo${NO_COLOR} / http://fedoraproject.org/wiki/EPEL\n"
+
+  if [ $PHP80 = "1" ]; then
+    printf "  - Install ${GREEN}PHP 8.0${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+  fi
+
+  if [ $PHP74 = "1" ]; then
+    printf "  - Install ${GREEN}PHP 7.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+  fi
+
+  if [ $PHP73 = "1" ]; then
+    printf "  - Install ${GREEN}PHP 7.3${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+  fi
 
   if [ $PHP72 = "1" ]; then
     printf "  - Install ${GREEN}PHP 7.2${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
@@ -112,10 +124,12 @@ function options
 
   if [ $PHP70 = "1" ]; then
     printf "  - Install ${GREEN}PHP 7.0${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    printf "      ${YELLOW}PHP 7.0 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
   if [ $PHP56 = "1" ]; then
     printf "  - Install ${GREEN}PHP 5.6${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    printf "      ${YELLOW}PHP 5.6 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
   if [ $PHP55 = "1" ]; then
@@ -140,11 +154,15 @@ function options
   echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
 
   if [ $NGINX = "1" ]; then
-    printf "  - Install ${GREEN}Nginx 1.10${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
+    printf "  - Install ${GREEN}Nginx 1.*${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
+  fi
+
+  if [ $LETSENCRYPT = "1" ]; then
+    printf "  - Install ${GREEN}Let's Encrypt tools${NO_COLOR} (certbot-auto + configs) / https://certbot.eff.org/\n"
   fi
 
   if [ $MARIADB = "1" ]; then
-    printf "  - Install ${GREEN}MariaDB 10.1${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
+    printf "  - Install ${GREEN}MariaDB 10.4${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
 
     if [ ! -z $MARIADB_RAM ]; then
       printf "      Use memory config : ${YELLOW}${MARIADB_RAM}${NO_COLOR}\n"

@@ -3,23 +3,25 @@
 # Copyright:: Copyright (c) 2016 Been Kyung-yoon (http://www.php79.com/)
 # License:: The MIT License (MIT)
 
+# PHP 8 차이점 - php80-php-pecl-mysql 패키지 없음
+
 STACK_ROOT=$( dirname $( cd "$( dirname "$0" )" && pwd ) )
 source "${STACK_ROOT}/includes/function.inc.sh"
 
 title "PHP [${1}] 버전을 설치합니다."
 
 if [ -z ${1} ]; then
-  abort "설치할 PHP 버전을 입력하세요.  70"
+  abort "설치할 PHP 버전을 입력하세요.  80"
 fi
 
 yum_install php$1-php-cli php$1-php-fpm \
 php$1-php-common php$1-php-pdo php$1-php-mysqlnd php$1-php-mbstring php$1-php-mcrypt \
 php$1-php-opcache php$1-php-xml php$1-php-pecl-imagick php$1-php-gd php$1-php-fileinfo \
-php$1-php-pecl-mysql php$1-php-pecl-zip php$1-php-bcmath
+php$1-php-pecl-zip php$1-php-bcmath
 
 if [ ! -f "/etc/opt/remi/php${1}/php.d/z-php79.ini" ]; then
   notice "PHP 권장 설정이 추가되었습니다.\n설정 파일 경로) /etc/opt/remi/php${1}/php.d/z-php79.ini"
-  cp -av "${STACK_ROOT}/php/70/z-php79.ini" "/etc/opt/remi/php${1}/php.d/"
+  cp -av "${STACK_ROOT}/php/80/z-php79.ini" "/etc/opt/remi/php${1}/php.d/"
   string_quote ${TIMEZONE}
   sed -i "s/^date.timezone =.*/date.timezone = ${STRING_QUOTE}/g" "/etc/opt/remi/php${1}/php.d/z-php79.ini"
 fi
