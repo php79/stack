@@ -110,7 +110,7 @@ fi
 
 if [ $PHP80 = "1" ]; then
   cmd_once "scripts/remi-repo-install.sh"
-  cmd_once "scripts/php7-remi-install.sh 80"
+  cmd_once "scripts/php8-remi-install.sh 80"
   PHP_INSTALLED=80
 fi
 
