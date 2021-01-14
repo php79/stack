@@ -12,7 +12,7 @@ notice "[1/5] 인증툴인 certbot-auto 를 설치합니다. - https://certbot.e
 notice "      certbot 최신 버전의 CentOS 지원 중단에 따라, 지원가능한 1.10.1 버전을 설치합니다. - https://github.com/php79/stack/issues/83"
 if [ ! -f "/usr/bin/certbot-auto" ]; then
   cd /usr/bin \
-  && wget -O certbot-auto https://raw.githubusercontent.com/certbot/certbot/1.10.x/certbot-auto \
+  && wget https://raw.githubusercontent.com/certbot/certbot/1.10.x/certbot-auto \
   && chmod ug+x certbot-auto \
   && certbot-auto --install-only --no-self-upgrade -n
 else
