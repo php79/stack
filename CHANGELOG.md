@@ -1,5 +1,10 @@
 # php79 stack 변경 내역
 
+## v1.2.1 (2021-01-14)
+
+### Fixed
+- certbot 최신 버전의 CentOS 지원 중단에 따라, 지원가능한 1.10.1 버전을 설치하도록 변경.  https://github.com/php79/stack/issues/83
+
 ## v1.2.0 (2020-11-30)
 
 ### Added
