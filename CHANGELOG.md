@@ -1,5 +1,10 @@
 # php79 stack 변경 내역
 
+## v1.2.2 (2021-10-29)
+
+### Fixed
+- nginx 최신 버전에서 소유자가 nginx 에서 nobody 로 변경됨에 따라, 일괄 변환하는 nginx-to-nobody.sh 스크립트 추가.  https://github.com/php79/stack/issues/86
+
 ## v1.2.1 (2021-01-14)
 
 ### Fixed
