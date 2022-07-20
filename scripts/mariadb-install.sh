@@ -6,7 +6,7 @@
 STACK_ROOT=$( dirname $( cd "$( dirname "$0" )" && pwd ) )
 source "${STACK_ROOT}/includes/function.inc.sh"
 
-title "MariaDB 10.4 을 설치합니다."
+title "MariaDB 10.6 을 설치합니다."
 
 
 yum_install MariaDB-server MariaDB-client MariaDB-common MariaDB-compat MariaDB-shared
@@ -46,4 +46,5 @@ fi
 
 # secure installation
 #echo -e "\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation    # <= 10.3
-echo -e "\nn\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation  # >= 10.4  https://github.com/php79/stack/issues/58
+#echo -e "\nn\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation  # >= 10.4  https://github.com/php79/stack/issues/58
+echo -e "\nn\nn\n\n\n\n\n" | /usr/bin/mariadb-secure-installation  # >= 10.6  https://github.com/php79/stack/issues/82#issuecomment-1189963633

@@ -1,5 +1,11 @@
 # php79 stack 변경 내역
 
+## v1.2.3 (2022-07-20)
+
+### Added
+- PHP 8.1 설치 추가 https://github.com/php79/stack/issues/89
+- MariaDB 10.4 에서 10.6 (LTS) 으로 기본 설치 변경. https://github.com/php79/stack/issues/82 / [기존 사용자들의 업그레이드 안내](https://github.com/php79/stack/issues/48#issuecomment-502039804)
+
 ## v1.2.2 (2021-10-29)
 
 ### Fixed
