@@ -86,7 +86,7 @@ fi
 
 # mariadb
 title "실행중인 MariaDB port 및 응답 여부"
-netstat -nlpt|grep -P "PID|mysqld"
+netstat -nlpt|grep -P "PID|mysqld|mariadbd"
 echo
 
 echo -n "mysqladmin ping -> "
