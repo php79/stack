@@ -94,13 +94,17 @@ function welcome_short
 function welcome
 {
   welcome_short
-  echo "  * PHP 5.3-8.0 + Nginx + Let's Encrypt + MariaDB installer"
+  echo "  * PHP 5.3-8.1 + Nginx + Let's Encrypt + MariaDB installer"
   echo
 }
 
 function options
 {
   printf "  - Install ${GREEN}EPEL repo${NO_COLOR} / http://fedoraproject.org/wiki/EPEL\n"
+
+  if [ $PHP81 = "1" ]; then
+    printf "  - Install ${GREEN}PHP 8.1${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+  fi
 
   if [ $PHP80 = "1" ]; then
     printf "  - Install ${GREEN}PHP 8.0${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
