@@ -1,5 +1,10 @@
 # php79 stack 변경 내역
 
+## v1.2.4 (2022-12-06)
+
+### Added
+- PHP 8.2 설치 추가 https://github.com/php79/stack/issues/93
+
 ## v1.2.3 (2022-07-20)
 
 ### Added
