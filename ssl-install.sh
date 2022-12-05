@@ -36,6 +36,7 @@ function show_usage
   echo -n "  "
   outputInfo  "--user"
   echo "      아이디(/etc/nginx/conf.d/아이디.conf).  ./user-add.sh 로 추가한 아이디를 입력하세요."
+  echo "                Tip) 실제 시스템 계정과는 무관합니다.  아이디는 위 nginx 경로의 파일명과 일치하면 됩니다."
   echo
 
   echo -n "  "
