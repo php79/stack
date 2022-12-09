@@ -25,9 +25,11 @@ function show_usage
   echo "Example:"
   outputComment "  ${0} --user=php79 --domain=php79.net"
   echo
-  outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net"
+  outputComment "  ${0} --user=phpmyadmin --domains=phpmyadmin.php79.net"
   echo
-  outputComment "  ${0} --user=wordpress --domain=wordpress.php79.net"
+  outputComment "  ${0} --user=wordpress --domains=wordpress.php79.net"
+  echo
+  outputComment "  ${0} --user=nmail2 --domains='mail.php79.net mail.php79.co.kr'"
   echo
 
   echo
@@ -43,6 +45,16 @@ function show_usage
   outputInfo  "--domain"
   echo "    도메인.  SSL 인증서 발급시 사용할 도메인으로 www. 없이 입력하세요."
   echo "                Tip) 발급시 www. 를 자동 추가하여 php79.net, www.php79.net 형태의 2개 도메인을 지원합니다."
+  echo "                주의) mail.php79.net 형태의 www. 이 불필요한 경우는 --domains 를 사용해주세요."
+  echo
+
+  echo -n "  "
+  outputInfo  "--domains"
+  echo "    도메인들.  SSL 인증서 발급시 사용할 도메인으로 2개 이상은 공백으로 구분하여 입력할 수 있습니다."
+  echo "                Tip) mail.php79.net 처럼 1개 서브 도메인만 추가 가능하며, 'mail.php79.net smtp.php79.net' 처럼 멀티 호스트 도메인도 가능합니다."
+  echo "                Tip) 'mail.php79.net mail.php79.co.kr' 처럼 서로 다른 2개 이상의 멀티 도메인도 가능합니다."
+  echo "                주의) 1개 인증서에는 최대 100개의 호스트명만 지원됩니다.  (https://letsencrypt.org/docs/rate-limits/)"
+  echo "                주의) *.php79.net 형태의 와일드 카드 도메인은 지원하지 않습니다. (별도 DNS 인증 필요 - https://letsencrypt.org/docs/faq/)"
   echo
 
   echo -n "  "
@@ -76,6 +88,13 @@ else
       shift
       INPUT_DOMAIN="${i#*=}"
       ;;
+    --domains=*)
+      shift
+      INPUT_DOMAINS="${i#*=}"
+      INPUT_DOMAINS_ARRAY=($INPUT_DOMAINS)
+      # domains 가 입력된 경우,  INPUT_DOMAIN 에 첫번째 도메인 입력하기?
+      INPUT_DOMAIN=${INPUT_DOMAINS_ARRAY[0]}
+      ;;
     --skip-nginx)
       shift
       INPUT_SKIP_NGINX=1
@@ -93,12 +112,31 @@ if [ -z ${INPUT_USER} ]; then
   input_abort "user 항목을 입력하세요."
 fi
 
+if [ -z ${INPUT_DOMAIN} ] && [ -z ${INPUT_DOMAINS} ]; then
+  input_abort "domain, domains 항목중 하나를 입력하세요."
+fi
+
 if [ -z ${INPUT_DOMAIN} ]; then
   input_abort "domain 항목을 입력하세요."
 fi
 
 
 outputComment "## Let's Encrypt SSL 인증서 발급을 시작합니다.\n\n"
+
+# domains 입력 처리
+if [ -z "${INPUT_DOMAINS}" ]; then
+  CERTBOT_DOMAINS="-d ${INPUT_DOMAIN} -d www.${INPUT_DOMAIN}"
+  PRINT_DOMAINS="${INPUT_DOMAIN} www.${INPUT_DOMAIN}"
+else
+  CERTBOT_DOMAINS=""
+  for i in "${INPUT_DOMAINS_ARRAY[@]}"
+  do
+    CERTBOT_DOMAINS="${CERTBOT_DOMAINS} -d ${i}"
+  done
+  PRINT_DOMAINS="${INPUT_DOMAINS}"
+fi
+outputInfo "  - 추가할 도메인            : ${PRINT_DOMAINS}\n\n"
+
 
 NGINX_USER_CONF="/etc/nginx/conf.d/${INPUT_USER}.conf"
 if [ ${INPUT_SKIP_NGINX} != "1" ]; then
@@ -107,6 +145,11 @@ if [ ${INPUT_SKIP_NGINX} != "1" ]; then
   if [ ! -f ${NGINX_USER_CONF} ]; then
     input_abort "${NGINX_USER_CONF} 설정 파일이 존재하지 않습니다."
   fi
+
+  # 추가전 nginx server_name 체크
+  #    domains -> server_name 이 다를 경우 직접 추가하도록 안내. (이미 별도 설정되어 있거나, 인지하지 못한 상황에서 의도치않게 바인딩될 수 있으므로 안됨.)
+  outputInfo "     $(grep server_name ${NGINX_USER_CONF})\n\n"
+  outputInfo "     * 추가할 도메인과 Nginx config 파일의 server_name 은 일치하거나, 와일드 카드(*)로 구성되어야 인증서 발급이 가능합니다.\n\n"
 fi
 
 
@@ -169,10 +212,10 @@ LETSENCRYPT_PEM="/etc/letsencrypt/live/${INPUT_DOMAIN}/fullchain.pem"
 if [ ! -f ${LETSENCRYPT_PEM} ]; then
   # 주의) 발급 테스트 과정을 생략하지 마세요.   실제 발급시 에러가 일정 횟수 이상 발생하면, 일정 기간 인증 시도가 차단됩니다.
   outputComment "# 인증서 발급 테스트를 시작합니다. (--dry-run)\n"
-  cmd "certbot-auto certonly --webroot -w /var/www/letsencrypt/ -d ${INPUT_DOMAIN} -d www.${INPUT_DOMAIN} -m ${LETSENCRYPT_EMAIL} --agree-tos -n --dry-run"
+  cmd "certbot-auto certonly --webroot -w /var/www/letsencrypt/${CERTBOT_DOMAINS} -m ${LETSENCRYPT_EMAIL} --agree-tos -n --dry-run"
 
   outputComment "# 실제 인증서 발급을 시작합니다.\n"
-  cmd "certbot-auto certonly --webroot -w /var/www/letsencrypt/ -d ${INPUT_DOMAIN} -d www.${INPUT_DOMAIN} -m ${LETSENCRYPT_EMAIL} --agree-tos -n"
+  cmd "certbot-auto certonly --webroot -w /var/www/letsencrypt/${CERTBOT_DOMAINS} -m ${LETSENCRYPT_EMAIL} --agree-tos -n"
 else
   outputComment "# 인증서가 존재하므로 발급을 생략합니다.\n"
   ls -l ${LETSENCRYPT_PEM}
@@ -230,5 +273,19 @@ if [ ${INPUT_SKIP_NGINX} != "1" ]; then
   outputInfo "  - 수정된 Nginx config      : ${NGINX_USER_CONF}\n\n"
 fi
 
-outputInfo "  - SSL 인증서 확인      : curl -Iv https://${INPUT_DOMAIN}\n\n"
-sleep 1; curl -Iv "https://${INPUT_DOMAIN}"
+if [ -z "${INPUT_DOMAINS}" ]; then
+  outputInfo "  - SSL 인증서 확인      : curl -Iv https://${INPUT_DOMAIN}\n"
+  sleep 1
+#  curl -Iv "https://${INPUT_DOMAIN}"
+  curl -Iv "https://${INPUT_DOMAIN}" 2>&1 | grep -E 'Connected|subject|start date|expire date|common name|issuer|^HTTP'
+  echo
+else
+  sleep 1;
+  for i in "${INPUT_DOMAINS_ARRAY[@]}"
+  do
+    outputInfo "  - SSL 인증서 확인      : curl -Iv https://${i}\n"
+#    curl -Iv "https://${i}"
+    curl -Iv "https://${i}" 2>&1 | grep -E 'Connected|subject|start date|expire date|common name|issuer|^HTTP'
+    echo
+  done
+fi
