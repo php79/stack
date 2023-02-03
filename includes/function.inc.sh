@@ -108,7 +108,11 @@ function welcome_short
 function welcome
 {
   welcome_short
-  echo "  * PHP 5.3-8.2 + Nginx + Let's Encrypt + MariaDB installer"
+  if [ "$OS" = "rocky8" ]; then
+    echo "  * PHP 5.6-8.2 + Nginx + Let's Encrypt + MariaDB installer"
+  else
+    echo "  * PHP 5.3-8.2 + Nginx + Let's Encrypt + MariaDB installer"
+  fi
   echo
 }
 
@@ -155,22 +159,34 @@ function options
   fi
 
   if [ $PHP55 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 5.5${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-    printf "      ${YELLOW}PHP 5.5 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    if [ "$OS" = "rocky8" ]; then
+      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.5${NO_COLOR} 를 지원하지 않습니다.\n"
+    else
+      printf "  - Install ${GREEN}PHP 5.5${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+      printf "      ${YELLOW}PHP 5.5 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    fi
   fi
 
   if [ $PHP54 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 5.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-    printf "      ${YELLOW}PHP 5.4 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    if [ "$OS" = "rocky8" ]; then
+      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.4${NO_COLOR} 를 지원하지 않습니다.\n"
+    else
+      printf "  - Install ${GREEN}PHP 5.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+      printf "      ${YELLOW}PHP 5.4 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    fi
   fi
 
   if [ $PHP53 = "1" ]; then
-    if [ ${OS} = "centos7" ]; then
-      printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} / Source compile\n"
+    if [ "$OS" = "rocky8" ]; then
+      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.3${NO_COLOR} 을 지원하지 않습니다.\n"
     else
-      printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo\n"
+      if [ ${OS} = "centos7" ]; then
+        printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} / Source compile\n"
+      else
+        printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo\n"
+      fi
+      printf "      ${YELLOW}PHP 5.3 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
     fi
-    printf "      ${YELLOW}PHP 5.3 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
   echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"

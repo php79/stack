@@ -50,26 +50,28 @@ fi
 
 ### PHP
 PHP_INSTALLED=
-if [ $PHP53 = "1" ]; then
-  if [ $OS = "centos7" ]; then
-    #cmd_once "scripts/mariadb-repo-install.sh"
-    cmd_once "scripts/centos7-php53-install.sh"
-  else
-    cmd_once "scripts/centos6-php53-install.sh"
+if [ "$OS" != "rocky8" ]; then
+  if [ $PHP53 = "1" ]; then
+    if [ $OS = "centos7" ]; then
+      #cmd_once "scripts/mariadb-repo-install.sh"
+      cmd_once "scripts/centos7-php53-install.sh"
+    else
+      cmd_once "scripts/centos6-php53-install.sh"
+    fi
+    PHP_INSTALLED=53
   fi
-  PHP_INSTALLED=53
-fi
 
-if [ $PHP54 = "1" ]; then
-  cmd_once "scripts/remi-repo-install.sh"
-  cmd_once "scripts/php5-remi-install.sh 54"
-  PHP_INSTALLED=54
-fi
+  if [ $PHP54 = "1" ]; then
+    cmd_once "scripts/remi-repo-install.sh"
+    cmd_once "scripts/php5-remi-install.sh 54"
+    PHP_INSTALLED=54
+  fi
 
-if [ $PHP55 = "1" ]; then
-  cmd_once "scripts/remi-repo-install.sh"
-  cmd_once "scripts/php5-remi-install.sh 55"
-  PHP_INSTALLED=55
+  if [ $PHP55 = "1" ]; then
+    cmd_once "scripts/remi-repo-install.sh"
+    cmd_once "scripts/php5-remi-install.sh 55"
+    PHP_INSTALLED=55
+  fi
 fi
 
 if [ $PHP56 = "1" ]; then
