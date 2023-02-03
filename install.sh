@@ -10,7 +10,7 @@ cd ${STACK_ROOT}
 
 ### PHP base version check
 PHP_BASE_INSTALL=PHP$PHP_BASE
-if [ ${!PHP_BASE_INSTALL} = "0" ]; then
+if [ "${!PHP_BASE_INSTALL}" = "0" ]; then
   abort "PHP_BASE=${PHP_BASE} 설정을 위해서는 PHP ${PHP_BASE} 을 설치해야 합니다.  (PHP${PHP_BASE}=1)";
 fi
 
