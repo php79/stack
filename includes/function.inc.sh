@@ -189,7 +189,9 @@ function options
     fi
   fi
 
-  echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
+  if [ ! -z "$PHP_BASE" ]; then
+    echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
+  fi
 
   if [ $NGINX = "1" ]; then
     printf "  - Install ${GREEN}Nginx 1.*${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
