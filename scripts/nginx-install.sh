@@ -12,7 +12,9 @@ is_installed nginx-release
 if [ $FUNC_RESULT = "1" ]; then
     echo "Already installed. -> nginx-release"
 else
-    if [ $OS = "centos7" ]; then
+    if [ "$OS" = "rocky8" ]; then
+        cp -av "${STACK_ROOT}/nginx/rocky8/nginx.repo" /etc/yum.repos.d/
+    elif [ "$OS" = "centos7" ]; then
         yum -y install http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
     else
         yum -y install http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
