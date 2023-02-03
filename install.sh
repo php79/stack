@@ -197,8 +197,11 @@ fi
 echo
 outputInfo "Thanks for php79 stack installing.  (설치가 완료되었습니다.)"
 echo
-outputInfo "Visit http://127.0.0.1 or http://ServerIP"
-echo
+
+if [ $NGINX = "1" ]; then
+  outputInfo "Visit http://127.0.0.1 or http://ServerIP"
+  echo
+fi
 
 
 ### Result
