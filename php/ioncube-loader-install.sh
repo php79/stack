@@ -11,12 +11,17 @@ PHP_VERSION=${1}
 title "PHP ionCube loader 모듈을 설치합니다."
 
 if [ -z ${PHP_VERSION} ]; then
-  abort "설치할 PHP 버전을 입력하세요.  53, 54, 55, 56, 70, 71(현재 미지원)"
+  if [ "$OS" = "rocky8" ]; then
+    abort "설치할 PHP 버전을 입력하세요.  56, 70, 71, 72, 73, 74, 80, 81, 82"
+  else
+    abort "설치할 PHP 버전을 입력하세요.  53, 54, 55, 56, 70, 71, 72, 73, 74, 80, 81, 82"
+  fi
 fi
 
-if [ ${PHP_VERSION} = "71" ]; then
-  abort "[2017-02-01] 기준, PHP 7.1 로더는 아직 출시되지 않았습니다."
-fi
+# 미지원 버전은 설치지 패키지가 없는 것으로 확인되도록, 소스단 제한은 주석 처리
+#if [ ${PHP_VERSION} = "71" ]; then
+#  abort "[2017-02-01] 기준, PHP 7.1 로더는 아직 출시되지 않았습니다."
+#fi
 
 PHP_CLI="/usr/bin/php${PHP_VERSION}"
 if [ ! -f ${PHP_CLI} ]; then
