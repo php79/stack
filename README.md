@@ -127,7 +127,7 @@ cd /root/stack
     ntsysv htop glances iotop iftop sysstat strace lsof mc lrzsz zip unzip bzip2)
 
 ## 방화벽 설정 안내
-- CentOS 7 + firewalld 설정: https://github.com/php79/stack/wiki/firewall
+- CentOS 7, Rocky Linux 8 + firewalld 설정: https://github.com/php79/stack/wiki/firewall
 - CentOS 6 + iptables 설정: http://www.php79.com/59
 > 방화벽 설정은 stack 에서 관리하지 않으니, 위 설정 방법대로 설정해주셔야 합니다.
 > 기본 방화벽 정책은 SSH 22 포트만 허용되므로, 웹서비스는 추가로 허용해주셔야 합니다.
