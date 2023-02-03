@@ -22,13 +22,13 @@ function show_usage
 
   echo
   echo "Example:"
-  outputComment "  ${0} --user=phpmyadmin --domain=phpmyadmin.php79.net --app=phpmyadmin --php=71 --ssl"
+  outputComment "  ${0} --user=phpmyadmin --domains=phpmyadmin.php79.net --app=phpmyadmin --php=71 --ssl"
   echo
-  outputComment "  ${0} --user=wordpress --domain=wordpress.php79.net --app=wordpress --php=71"
+  outputComment "  ${0} --user=wordpress --domains=wordpress.php79.net --app=wordpress --php=71"
   echo
-  outputComment "  ${0} --user=laravel55 --domain=laravel55.php79.net --app=laravel55 --php=71 --ssl"
+  outputComment "  ${0} --user=laravel55 --domains=laravel55.php79.net --app=laravel55 --php=71 --ssl"
   echo
-  outputComment "  ${0} --user=octobercms --domain=octobercms.php79.net --app=laravel51 --php=71 --ssl --skip-install"
+  outputComment "  ${0} --user=octobercms --domains=octobercms.php79.net --app=laravel51 --php=71 --ssl --skip-install"
   echo
 
   echo
@@ -48,6 +48,15 @@ function show_usage
   outputInfo  "--domain"
   echo "    도메인.  nginx 설정의 server_name 에 사용됩니다.  www. 없이 입력하세요."
   echo "                Tip) 도메인이 없거나 연결되지 않았습니까?  PC 에서만 테스트하는 방법을 참고하세요. http://www.php79.com/176"
+  echo "                주의) mail.php79.net 형태의 www. 이 불필요한 경우는 --domains 를 사용해주세요."
+  echo
+
+  echo -n "  "
+  outputInfo  "--domains"
+  echo "    도메인들.  nginx 설정의 server_name 에 사용됩니다.  2개 이상은 공백으로 구분하여 입력할 수 있습니다."
+  echo "                Tip) mail.php79.net 처럼 1개 서브 도메인만 추가 가능하며, 'mail.php79.net smtp.php79.net' 처럼 멀티 호스트 도메인도 가능합니다."
+  echo "                Tip) 'mail.php79.net mail.php79.co.kr' 처럼 서로 다른 2개 이상의 멀티 도메인도 가능합니다."
+  echo "                주의) *.php79.net 형태의 와일드 카드 도메인은 SSL 인증서 발급을 지원하지 않습니다."
   echo
 
   echo -n "  "
@@ -113,6 +122,13 @@ else
       shift
       INPUT_DOMAIN="${i#*=}"
       ;;
+    --domains=*)
+      shift
+      INPUT_DOMAINS="${i#*=}"
+      INPUT_DOMAINS_ARRAY=($INPUT_DOMAINS)
+      # domains 가 입력된 경우,  INPUT_DOMAIN 에 첫번째 도메인 입력하기?
+      INPUT_DOMAIN=${INPUT_DOMAINS_ARRAY[0]}
+      ;;
     --app=*)
       shift
       INPUT_APP="${i#*=}"
@@ -147,6 +163,10 @@ if [ -z ${INPUT_PASSWORD} ]; then
   #input_abort "password 항목을 입력하세요."
   INPUT_PASSWORD=$(scripts/password-generate.sh)
   PASSWORD_GENERATED=1
+fi
+
+if [ -z ${INPUT_DOMAIN} ] && [ -z ${INPUT_DOMAINS} ]; then
+  input_abort "domain, domains 항목중 하나를 입력하세요."
 fi
 
 if [ -z ${INPUT_DOMAIN} ]; then
@@ -208,8 +228,29 @@ fi
 
 # nginx 설정 추가
 notice "nginx 에 새로운 사이트 설정을 추가합니다."
+
+# domains 입력 처리
+if [ -z "${INPUT_DOMAINS}" ]; then
+  CERTBOT_DOMAINS="-d ${INPUT_DOMAIN} -d www.${INPUT_DOMAIN}"
+  PRINT_DOMAINS="${INPUT_DOMAIN} www.${INPUT_DOMAIN}"
+else
+  CERTBOT_DOMAINS=""
+  for i in "${INPUT_DOMAINS_ARRAY[@]}"
+  do
+    CERTBOT_DOMAINS="${CERTBOT_DOMAINS} -d ${i}"
+  done
+  PRINT_DOMAINS="${INPUT_DOMAINS}"
+fi
+outputInfo "  - 추가할 도메인            : ${PRINT_DOMAINS}\n\n"
+
 cp -av "${STACK_ROOT}/apps/${INPUT_APP}/template-server.conf" "/etc/nginx/conf.d/${INPUT_USER}.conf"
-sed -i "s/_INPUT_DOMAIN_/${INPUT_DOMAIN}/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
+
+if [ -z "${INPUT_DOMAINS}" ]; then
+  sed -i "s/_INPUT_DOMAIN_/${INPUT_DOMAIN}/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
+else
+  sed -i "s/_INPUT_DOMAIN_ www._INPUT_DOMAIN_/${INPUT_DOMAINS}/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
+fi
+
 sed -i "s/_INPUT_USER_/${INPUT_USER}/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
 sed -i "s/_INPUT_BACKEND_/php${INPUT_PHP_VERSION}_backend/g" "/etc/nginx/conf.d/${INPUT_USER}.conf"
 echo
@@ -264,7 +305,11 @@ fi
 # SSL 인증서 발급 및 nginx SSL 설정 추가 - 실패시에도 설치 완료 화면 표시
 if [ ${INPUT_SSL} = "1" ]; then
    if [ -f "/usr/bin/certbot-auto" ]; then
-     ${STACK_ROOT}/ssl-install.sh --user=${INPUT_USER} --domain=${INPUT_DOMAIN}
+     if [ -z "${INPUT_DOMAINS}" ]; then
+       ${STACK_ROOT}/ssl-install.sh --user=${INPUT_USER} --domain=${INPUT_DOMAIN}
+     else
+       ${STACK_ROOT}/ssl-install.sh --user=${INPUT_USER} --domains="${INPUT_DOMAINS}"
+     fi
    else
      outputError "Let's Encrypt 자동화툴이 설치되지 않았습니다. SSL 인증서 발급을 생략합니다."
    fi
@@ -285,7 +330,15 @@ if [ ${PASSWORD_GENERATED} = "1" ]; then
   echo
 fi
 
-outputInfo "  - URL               : http://${INPUT_DOMAIN}\n"
+if [ -z "${INPUT_DOMAINS}" ]; then
+ outputInfo "  - URL               : http://${INPUT_DOMAIN}\n"
+else
+  for i in "${INPUT_DOMAINS_ARRAY[@]}"
+  do
+   outputInfo "  - URL               : http://${i}\n"
+  done
+fi
+
 echo "      (도메인이 없거나 연결 오류시, PC 에서 hosts 수정하여 테스트하는 방법 - http://www.php79.com/176)"
 echo
 
