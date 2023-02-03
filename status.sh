@@ -51,7 +51,7 @@ done
 echo
 
 if [ ! -z ${LAST_SERVICE_NAME} ]; then
-  if [ ${OS} = 'centos7' ]; then
+  if [ "$SYSTEMCTL" = "1" ]; then
     outputInfo "  * PHP FPM 재시작 명령: systemctl restart ${LAST_SERVICE_NAME}"
   else
     outputInfo "  * PHP FPM 재시작 명령: service ${LAST_SERVICE_NAME} restart"
@@ -75,7 +75,7 @@ curl -s http://127.0.0.1|grep -i "<title>"|head -n1
 echo
 
 if [ ! -z ${LAST_SERVICE_NAME} ]; then
-  if [ ${OS} = 'centos7' ]; then
+  if [ "$SYSTEMCTL" = "1" ]; then
     outputInfo "  * Nginx 재시작 명령: systemctl restart nginx"
   else
     outputInfo "  * Nginx 재시작 명령: service nginx restart"
@@ -94,7 +94,7 @@ mysqladmin ping
 echo
 
 if [ ! -z ${LAST_SERVICE_NAME} ]; then
-  if [ ${OS} = 'centos7' ]; then
+  if [ "$SYSTEMCTL" = "1" ]; then
     outputInfo "  * MariaDB 재시작 명령: systemctl restart mariadb"
   else
     outputInfo "  * MariaDB 재시작 명령: service mysql restart"

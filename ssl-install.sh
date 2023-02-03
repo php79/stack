@@ -191,7 +191,7 @@ if [ ${INPUT_SKIP_NGINX} != "1" ]; then
       # nginx 재시작
       outputComment "# nginx 를 재시작합니다.\n"
       echo
-      if [ $OS = "centos7" ]; then
+      if [ "$SYSTEMCTL" = "1" ]; then
         systemctl reload nginx
       else
         service nginx reload
@@ -255,7 +255,7 @@ if [ ${INPUT_SKIP_NGINX} != "1" ]; then
     # nginx 재시작
     outputComment "# nginx 를 재시작합니다.\n"
     echo
-    if [ $OS = "centos7" ]; then
+    if [ "$SYSTEMCTL" = "1" ]; then
       systemctl reload nginx
     else
       service nginx reload

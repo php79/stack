@@ -69,7 +69,7 @@ else
   # REMI 저장소 사용
   notice "REMI 저장소를 사용하여, php${PHP_VERSION}-php-ioncube-loader 모듈을 설치합니다."
   yum_install "php${PHP_VERSION}-php-ioncube-loader"
-  if [ $OS = "centos7" ]; then
+  if [ "$SYSTEMCTL" = "1" ]; then
     systemctl restart "php${PHP_VERSION}-php-fpm"
   else
     service "php${PHP_VERSION}-php-fpm" restart

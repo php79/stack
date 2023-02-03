@@ -35,7 +35,7 @@ if [ ! -f /etc/nginx/conf.d/0-php79.conf ]; then
   cp -av "${STACK_ROOT}/nginx/0-php79.conf" /etc/nginx/conf.d/
 fi
 
-if [ $OS = "centos7" ]; then
+if [ "$SYSTEMCTL" = "1" ]; then
   systemctl enable nginx
   systemctl start nginx
 else

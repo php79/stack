@@ -12,7 +12,7 @@ yum makecache
 yum -y --exclude=kernel* update
 yum_install epel-release yum-utils ntp
 
-if [ $OS = "centos7" ]; then
+if [ "$SYSTEMCTL" = "1" ]; then
   systemctl enable ntpd
   systemctl start ntpd
 else

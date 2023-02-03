@@ -36,7 +36,7 @@ if [ ! -f /etc/my.cnf.d/z-php79.cnf ]; then
   cp -av "${STACK_ROOT}/mariadb/z-php79.cnf" /etc/my.cnf.d/
 fi
 
-if [ $OS = "centos7" ]; then
+if [ "$SYSTEMCTL" = "1" ]; then
   systemctl enable mariadb
   systemctl start mariadb
 else

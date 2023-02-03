@@ -33,7 +33,7 @@ sed -i 's/^listen = 127.0.0.1:9000/listen = 127.0.0.1:90'$1'/g' $PHP_FPM_CONF
 chgrp -v nobody /var/opt/remi/php$1/lib/php/*
 chown -v nobody /var/opt/remi/php$1/log/php-fpm
 
-if [ $OS = "centos7" ]; then
+if [ "$SYSTEMCTL" = "1" ]; then
   systemctl enable php$1-php-fpm
   systemctl start php$1-php-fpm
 else

@@ -25,7 +25,16 @@ source "${STACK_ROOT}/stack.conf"
 
 ### OS detect
 OS=
-if [ -f /etc/centos-release ]; then
+if [ -f /etc/rocky-release ]; then
+  RELEASE_VERSION=`grep -o 'release [0-9]\+' /etc/rocky-release`
+  if [ "$RELEASE_VERSION" = "release 8" ]; then
+    OS=rocky8
+  else
+    echo "Only Rocky Linux 8. (Rocky Linux 8 버전만 지원됩니다.)"
+    echo -n "Current version: " && cat /etc/rocky-release
+    abort
+  fi
+elif [ -f /etc/centos-release ]; then
   RELEASE_VERSION=`grep -o 'release [0-9]\+' /etc/centos-release`
   if [ "$RELEASE_VERSION" = "release 7" ]; then
     OS=centos7
@@ -37,10 +46,15 @@ if [ -f /etc/centos-release ]; then
     abort
   fi
 else
-  echo "Only CentOS 6/7. (CentOS 6/7 버전만 지원됩니다.)"
+  echo "Only  Rocky Linux 8, CentOS 6/7. (Rocky Linux 8, CentOS 6/7 버전만 지원됩니다.)"
   abort
 fi
 
+### systemctl detect
+SYSTEMCTL=0
+if [ -f /usr/bin/systemctl ]; then
+  SYSTEMCTL=1
+fi
 
 ### Functions
 
