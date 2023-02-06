@@ -7,6 +7,8 @@
   - Rocky Linux 8 차이점 https://github.com/php79/stack/wiki/Rocky-Linux-8-%EC%B0%A8%EC%9D%B4%EC%A0%90
 - SSL 인증서 발급시 --domains= 옵션 추가하여, 서브 도메인 1개 및 멀티 호스트 지원 https://github.com/php79/stack/issues/71
 - phpMyAdmin 설치 오류 개선 및 보안 강화 https://github.com/php79/stack/issues/94
+
+### Fixed
 - PHP, Nginx, MariaDB 설치하지 않아도 에러 없도록 개선 (DB 서버, 타 서비스 용도)
   - PHP 미설치시 오류 개선 https://github.com/php79/stack/issues/61
   - PHP 미설치시 오류 개선 https://github.com/php79/stack/issues/60
