@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # phpMyAdmin - https://www.phpmyadmin.net/
-# updated: 2023-02-04 composer 설치로 개선. phpMyAdmin 5.2.0 설치 확인.  "php": "^7.2.5 || ^8.0"
+# updated: 2023-02-06 composer 설치로 개선. phpMyAdmin 5.2.0 설치 확인.  "php": "^7.2.5 || ^8.0"
 # updated: 2016-04-01
 
 if [ $(whoami) = "root" ]; then
@@ -9,10 +9,10 @@ if [ $(whoami) = "root" ]; then
 fi
 
 # master 디렉토리 생성 및 composer 로 public 디렉토리에 phpMyAdmin 설치
-cd ~ \
+cd ~
 
 if [ ! -d master ]; then
-  mkdir master
+  mkdir -v  master
   echo
 fi
 
@@ -39,8 +39,22 @@ echo
 
 # 임시 디렉토리 생성
 if [ ! -d tmp ]; then
-  echo "임시 디렉토리 (tmp) 를 만듭니다."
-  mkdir tmp && chmod 777 tmp
+  echo "임시 디렉토리를 만듭니다."
+  mkdir -v  tmp && chmod -v 777 tmp
+  echo
+fi
+
+# 세션 디렉토리 생성 및 설정 변경
+cd ~/master
+if [ ! -d session ]; then
+  echo "세션 디렉토리를 만듭니다."
+  mkdir -v  session && chmod -v 777 session
+  echo
+
+  echo "config.inc.php 파일에 세션 디렉토리 변수를 추가합니다."
+  CFG_SESSION_SAVE_PATH="$(pwd)/session"
+  CFG_ADD="\$cfg['SessionSavePath'] = '${CFG_SESSION_SAVE_PATH}';"
+  printf "\n${CFG_ADD}\n" >> public/config.inc.php
   echo
 fi
 
