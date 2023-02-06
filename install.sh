@@ -10,8 +10,8 @@ cd ${STACK_ROOT}
 
 ### PHP base version check
 PHP_BASE_INSTALL=PHP$PHP_BASE
-if [ ${!PHP_BASE_INSTALL} = "0" ]; then
-  abort "PHP_BASE=${PHP_BASE} 설정을 위해서는 PHP 7.0 을 설치해야 합니다.  (PHP70=1)";
+if [ "${!PHP_BASE_INSTALL}" = "0" ]; then
+  abort "PHP_BASE=${PHP_BASE} 설정을 위해서는 PHP ${PHP_BASE} 을 설치해야 합니다.  (PHP${PHP_BASE}=1)";
 fi
 
 ### Welcome
@@ -50,26 +50,28 @@ fi
 
 ### PHP
 PHP_INSTALLED=
-if [ $PHP53 = "1" ]; then
-  if [ $OS = "centos7" ]; then
-    #cmd_once "scripts/mariadb-repo-install.sh"
-    cmd_once "scripts/centos7-php53-install.sh"
-  else
-    cmd_once "scripts/centos6-php53-install.sh"
+if [ "$OS" != "rocky8" ]; then
+  if [ $PHP53 = "1" ]; then
+    if [ $OS = "centos7" ]; then
+      #cmd_once "scripts/mariadb-repo-install.sh"
+      cmd_once "scripts/centos7-php53-install.sh"
+    else
+      cmd_once "scripts/centos6-php53-install.sh"
+    fi
+    PHP_INSTALLED=53
   fi
-  PHP_INSTALLED=53
-fi
 
-if [ $PHP54 = "1" ]; then
-  cmd_once "scripts/remi-repo-install.sh"
-  cmd_once "scripts/php5-remi-install.sh 54"
-  PHP_INSTALLED=54
-fi
+  if [ $PHP54 = "1" ]; then
+    cmd_once "scripts/remi-repo-install.sh"
+    cmd_once "scripts/php5-remi-install.sh 54"
+    PHP_INSTALLED=54
+  fi
 
-if [ $PHP55 = "1" ]; then
-  cmd_once "scripts/remi-repo-install.sh"
-  cmd_once "scripts/php5-remi-install.sh 55"
-  PHP_INSTALLED=55
+  if [ $PHP55 = "1" ]; then
+    cmd_once "scripts/remi-repo-install.sh"
+    cmd_once "scripts/php5-remi-install.sh 55"
+    PHP_INSTALLED=55
+  fi
 fi
 
 if [ $PHP56 = "1" ]; then
@@ -118,6 +120,12 @@ if [ $PHP81 = "1" ]; then
   cmd_once "scripts/remi-repo-install.sh"
   cmd_once "scripts/php8-remi-install.sh 81"
   PHP_INSTALLED=81
+fi
+
+if [ $PHP82 = "1" ]; then
+  cmd_once "scripts/remi-repo-install.sh"
+  cmd_once "scripts/php8-remi-install.sh 82"
+  PHP_INSTALLED=82
 fi
 
 ### /usr/bin/php link
@@ -189,8 +197,11 @@ fi
 echo
 outputInfo "Thanks for php79 stack installing.  (설치가 완료되었습니다.)"
 echo
-outputInfo "Visit http://127.0.0.1 or http://ServerIP"
-echo
+
+if [ $NGINX = "1" ]; then
+  outputInfo "Visit http://127.0.0.1 or http://ServerIP"
+  echo
+fi
 
 
 ### Result

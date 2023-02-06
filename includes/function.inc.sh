@@ -25,7 +25,16 @@ source "${STACK_ROOT}/stack.conf"
 
 ### OS detect
 OS=
-if [ -f /etc/centos-release ]; then
+if [ -f /etc/rocky-release ]; then
+  RELEASE_VERSION=`grep -o 'release [0-9]\+' /etc/rocky-release`
+  if [ "$RELEASE_VERSION" = "release 8" ]; then
+    OS=rocky8
+  else
+    echo "Only Rocky Linux 8. (Rocky Linux 8 버전만 지원됩니다.)"
+    echo -n "Current version: " && cat /etc/rocky-release
+    abort
+  fi
+elif [ -f /etc/centos-release ]; then
   RELEASE_VERSION=`grep -o 'release [0-9]\+' /etc/centos-release`
   if [ "$RELEASE_VERSION" = "release 7" ]; then
     OS=centos7
@@ -37,10 +46,15 @@ if [ -f /etc/centos-release ]; then
     abort
   fi
 else
-  echo "Only CentOS 6/7. (CentOS 6/7 버전만 지원됩니다.)"
+  echo "Only  Rocky Linux 8, CentOS 6/7. (Rocky Linux 8, CentOS 6/7 버전만 지원됩니다.)"
   abort
 fi
 
+### systemctl detect
+SYSTEMCTL=0
+if [ -f /usr/bin/systemctl ]; then
+  SYSTEMCTL=1
+fi
 
 ### Functions
 
@@ -94,13 +108,21 @@ function welcome_short
 function welcome
 {
   welcome_short
-  echo "  * PHP 5.3-8.1 + Nginx + Let's Encrypt + MariaDB installer"
+  if [ "$OS" = "rocky8" ]; then
+    echo "  * PHP 5.6-8.2 + Nginx + Let's Encrypt + MariaDB installer"
+  else
+    echo "  * PHP 5.3-8.2 + Nginx + Let's Encrypt + MariaDB installer"
+  fi
   echo
 }
 
 function options
 {
   printf "  - Install ${GREEN}EPEL repo${NO_COLOR} / http://fedoraproject.org/wiki/EPEL\n"
+
+  if [ $PHP82 = "1" ]; then
+    printf "  - Install ${GREEN}PHP 8.2${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+  fi
 
   if [ $PHP81 = "1" ]; then
     printf "  - Install ${GREEN}PHP 8.1${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
@@ -137,25 +159,39 @@ function options
   fi
 
   if [ $PHP55 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 5.5${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-    printf "      ${YELLOW}PHP 5.5 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    if [ "$OS" = "rocky8" ]; then
+      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.5${NO_COLOR} 를 지원하지 않습니다.\n"
+    else
+      printf "  - Install ${GREEN}PHP 5.5${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+      printf "      ${YELLOW}PHP 5.5 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    fi
   fi
 
   if [ $PHP54 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 5.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-    printf "      ${YELLOW}PHP 5.4 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    if [ "$OS" = "rocky8" ]; then
+      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.4${NO_COLOR} 를 지원하지 않습니다.\n"
+    else
+      printf "  - Install ${GREEN}PHP 5.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+      printf "      ${YELLOW}PHP 5.4 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    fi
   fi
 
   if [ $PHP53 = "1" ]; then
-    if [ ${OS} = "centos7" ]; then
-      printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} / Source compile\n"
+    if [ "$OS" = "rocky8" ]; then
+      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.3${NO_COLOR} 을 지원하지 않습니다.\n"
     else
-      printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo\n"
+      if [ ${OS} = "centos7" ]; then
+        printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} / Source compile\n"
+      else
+        printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo\n"
+      fi
+      printf "      ${YELLOW}PHP 5.3 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
     fi
-    printf "      ${YELLOW}PHP 5.3 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
   fi
 
-  echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
+  if [ ! -z "$PHP_BASE" ]; then
+    echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
+  fi
 
   if [ $NGINX = "1" ]; then
     printf "  - Install ${GREEN}Nginx 1.*${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"

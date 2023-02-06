@@ -11,7 +11,7 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 title "PHP [${1}] 버전을 설치합니다."
 
 if [ -z ${1} ]; then
-  abort "설치할 PHP 버전을 입력하세요.  80"
+  abort "설치할 PHP 버전을 입력하세요.  80, 81, 82"
 fi
 
 yum_install php$1-php-cli php$1-php-fpm \
@@ -27,15 +27,21 @@ if [ ! -f "/etc/opt/remi/php${1}/php.d/z-php79.ini" ]; then
 fi
 
 PHP_FPM_CONF=/etc/opt/remi/php$1/php-fpm.d/www.conf
-sed -i 's/^;security.limit_extensions = .php .php3 .php4 .php5/security.limit_extensions = .php .html .htm .inc/g' $PHP_FPM_CONF
 sed -i 's/^user = apache/user = nobody/g' $PHP_FPM_CONF
 sed -i 's/^group = apache/group = nobody/g' $PHP_FPM_CONF
-sed -i 's/^listen = 127.0.0.1:9000/listen = 127.0.0.1:90'$1'/g' $PHP_FPM_CONF
+
+if [ "$OS" = "rocky8" ]; then
+  sed -i 's/^;security.limit_extensions = .php .php3 .php4 .php5 .php7/security.limit_extensions = .php .html .htm .inc/g' $PHP_FPM_CONF
+  sed -i 's/^listen = \/var\/opt\/remi\/php'$1'\/run\/php-fpm\/www.sock/listen = 127.0.0.1:90'$1'/g' $PHP_FPM_CONF
+else
+  sed -i 's/^;security.limit_extensions = .php .php3 .php4 .php5/security.limit_extensions = .php .html .htm .inc/g' $PHP_FPM_CONF
+  sed -i 's/^listen = 127.0.0.1:9000/listen = 127.0.0.1:90'$1'/g' $PHP_FPM_CONF
+fi
 
 chgrp -v nobody /var/opt/remi/php$1/lib/php/*
 chown -v nobody /var/opt/remi/php$1/log/php-fpm
 
-if [ $OS = "centos7" ]; then
+if [ "$SYSTEMCTL" = "1" ]; then
   systemctl enable php$1-php-fpm
   systemctl start php$1-php-fpm
 else

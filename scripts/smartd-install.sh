@@ -10,7 +10,7 @@ title "S.M.A.R.T. 디스크 모니터링을 설치합니다."
 
 yum_install smartmontools
 
-if [ $OS = "centos7" ]; then
+if [ "$SYSTEMCTL" = "1" ]; then
   systemctl enable smartd
   systemctl start smartd
 else

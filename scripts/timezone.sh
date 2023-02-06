@@ -13,7 +13,7 @@ if [ -z ${1} ]; then
 fi
 
 if [ -f "/usr/share/zoneinfo/${1}" ]; then
-  if [ $OS = "centos7" ]; then
+  if [[ "$OS" = "centos7" || "$OS" = "rocky8" ]]; then
     timedatectl set-timezone "${1}"
   else
     ln -sf /usr/share/zoneinfo/${1} /etc/localtime

@@ -10,16 +10,16 @@ cd ${STACK_ROOT}
 
 welcome_short
 
+if [ -f /usr/sbin/nginx ]; then
+  title "업데이트전 nginx 설정을 먼저 테스트합니다."
 
-title "업데이트전 nginx 설정을 먼저 테스트합니다."
+  /usr/sbin/nginx -t
 
-/usr/sbin/nginx -t
-
-if [ ${?} != "0" ]; then
-  error "nginx 설정 테스트가 실패하였습니다.  nginx 설정 오류를 해결하고 업데이트해주세요."
-  exit 1
+  if [ ${?} != "0" ]; then
+    error "nginx 설정 테스트가 실패하였습니다.  nginx 설정 오류를 해결하고 업데이트해주세요."
+    exit 1
+  fi
 fi
-
 
 title "php79 stack 업데이트를 시작합니다."
 
