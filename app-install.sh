@@ -22,13 +22,13 @@ function show_usage
 
   echo
   echo "Example:"
-  outputComment "  ${0} --user=phpmyadmin --domains=phpmyadmin.php79.net --app=phpmyadmin --php=71 --ssl"
+  outputComment "  ${0} --user=phpmyadmin --domains=phpmyadmin.php79.net --app=phpmyadmin --php=74 --ssl"
   echo
-  outputComment "  ${0} --user=wordpress --domains=wordpress.php79.net --app=wordpress --php=71"
+  outputComment "  ${0} --user=wordpress --domains=wordpress.php79.net --app=wordpress --php=74"
   echo
-  outputComment "  ${0} --user=laravel55 --domains=laravel55.php79.net --app=laravel55 --php=71 --ssl"
+  outputComment "  ${0} --user=laravel55 --domains=laravel55.php79.net --app=laravel55 --php=74 --ssl"
   echo
-  outputComment "  ${0} --user=octobercms --domains=octobercms.php79.net --app=laravel51 --php=71 --ssl --skip-install"
+  outputComment "  ${0} --user=octobercms --domains=octobercms.php79.net --app=laravel51 --php=74 --ssl --skip-install"
   echo
 
   echo
@@ -65,7 +65,7 @@ function show_usage
   echo "         laravel51  - Laravel 5.1"
   echo "         laravel58  - Laravel 5.8  (5.1 ~ 5.8 까지 지원)"
   echo "         wordpress  - WordPress"
-  echo "         phpmyadmin - phpMyAdmin"
+  echo "         phpmyadmin - phpMyAdmin latest (PHP 7.2 이상)"
   echo "         gnuboard5  - 그누보드 5"
   echo "         gnuboard4  - 그누보드 4"
   echo "         xe1        - XE 1"
