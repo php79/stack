@@ -1,5 +1,10 @@
 # php79 stack 변경 내역
 
+## v1.3.1 (2023-02-11)
+
+### Fixed
+- MariaDB 의 RPM GPG KEY 갱신 https://github.com/php79/stack/issues/96
+
 ## v1.3.0 (2023-02-06)
 
 ### Added
