@@ -212,10 +212,10 @@ LETSENCRYPT_PEM="/etc/letsencrypt/live/${INPUT_DOMAIN}/fullchain.pem"
 if [ ! -f ${LETSENCRYPT_PEM} ]; then
   # 주의) 발급 테스트 과정을 생략하지 마세요.   실제 발급시 에러가 일정 횟수 이상 발생하면, 일정 기간 인증 시도가 차단됩니다.
   outputComment "# 인증서 발급 테스트를 시작합니다. (--dry-run)\n"
-  cmd "certbot-auto certonly --webroot -w /var/www/letsencrypt/${CERTBOT_DOMAINS} -m ${LETSENCRYPT_EMAIL} --agree-tos -n --dry-run"
+  cmd "certbot-auto certonly --webroot -w /var/www/letsencrypt/ ${CERTBOT_DOMAINS} -m ${LETSENCRYPT_EMAIL} --agree-tos -n --dry-run"
 
   outputComment "# 실제 인증서 발급을 시작합니다.\n"
-  cmd "certbot-auto certonly --webroot -w /var/www/letsencrypt/${CERTBOT_DOMAINS} -m ${LETSENCRYPT_EMAIL} --agree-tos -n"
+  cmd "certbot-auto certonly --webroot -w /var/www/letsencrypt/ ${CERTBOT_DOMAINS} -m ${LETSENCRYPT_EMAIL} --agree-tos -n"
 else
   outputComment "# 인증서가 존재하므로 발급을 생략합니다.\n"
   ls -l ${LETSENCRYPT_PEM}

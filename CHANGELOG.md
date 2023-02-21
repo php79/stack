@@ -1,5 +1,10 @@
 # php79 stack 변경 내역
 
+## v1.3.2 (2023-02-22)
+
+### Fixed
+- ssl-install.sh 에서 --domain 옵션 사용시 에러 수정 (v1.3.0 --domains 옵션 추가시 발생)
+
 ## v1.3.1 (2023-02-11)
 
 ### Fixed
