@@ -6,7 +6,11 @@
 STACK_ROOT=$( dirname $( cd "$( dirname "$0" )" && pwd ) )
 source "${STACK_ROOT}/includes/function.inc.sh"
 
-title "MariaDB 10.6 을 설치합니다."
+if [[ "$OS" = "centos7" || "$OS" = "rocky8" ]]; then
+  title "MariaDB ${MARIADB_VERSION} 을 설치합니다."
+else
+  title "MariaDB 10.6 을 설치합니다."
+fi
 
 
 yum_install MariaDB-server MariaDB-client MariaDB-common MariaDB-compat MariaDB-shared
