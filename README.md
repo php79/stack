@@ -36,6 +36,7 @@ cd /root/ \
 
 - 기본 설치 옵션은 **PHP 7.4** + Nginx + Let's Encrypt + MariaDB 입니다.
  - 설치 화면에서 'y'만 누르면 바로 설치가 진행됩니다.
+ - [최소 설치 가이드 (필수 패키지만 설치)](https://github.com/php79/stack/wiki/install-minimal)
 
 ![install.sh](https://www.php79.com/wp-content/uploads/2023/11/20231123_073736.png)
 
