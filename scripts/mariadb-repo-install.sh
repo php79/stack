@@ -12,7 +12,6 @@ title "MariaDB 저장소를 설치합니다."
 # 2023.11.23 CentOS 7 에서도 MariaDB 버전 선택 가능하도록 변경
 if [[ "$OS" = "centos7" || "$OS" = "rocky8" ]]; then
   # https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/
-  title "MariaDB ${MARIADB_VERSION} 을 설치합니다."
   curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-${MARIADB_VERSION}"
 else
   # http://yum.mariadb.org/ 에서 공식 저장소 패키지가 없던 시기에 수동 설치 방법이지만, 하위 호환성 유지하여 기존 방법 유지
