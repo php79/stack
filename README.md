@@ -37,7 +37,7 @@ cd /root/ \
 - 기본 설치 옵션은 **PHP 7.4** + Nginx + Let's Encrypt + MariaDB 입니다.
  - 설치 화면에서 'y'만 누르면 바로 설치가 진행됩니다.
 
-![PHP 7.0](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113049.png)
+![install.sh](https://www.php79.com/wp-content/uploads/2023/11/20231123_073736.png)
 
 - **PHP 8.2** 등 다른 버전을 설치하실 경우, 설치화면에서 'n'를 누르고 중단합니다.
  - 그리고 `stack.conf` 파일을 열어 `PHP82=1` 으로 활성화시켜주고, 다시 `./install.sh` 를 실행하면 됩니다.
@@ -83,7 +83,7 @@ cd /root/stack
 ./status.sh
 ```
 
-![status.sh](http://www.php79.com/wp-content/uploads/2016/04/2016-04-02-113610.png)
+![status.sh](https://www.php79.com/wp-content/uploads/2023/11/20231123_183610.png)
 
 ### self-update.sh
 
