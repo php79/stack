@@ -1,5 +1,13 @@
 # php79 stack 변경 내역
 
+## v1.4.0 (2023-11-23)
+
+### Added
+- MariaDB 설치 버전 선택 기능 추가.  10.6, 10.11  https://github.com/php79/stack/issues/99
+  - MariaDB 기본 설치 버전을 10.6 (LTS) 에서 10.11 (LTS) 으로 변경
+  - 단, 설치 버전 선택은 CentOS 7, Rocky Linux 8 에서만 지원.  CentOS 6 은 기존 10.6 유지
+  - [기존 사용자들의 업그레이드 안내](https://github.com/php79/stack/issues/48#issuecomment-502039804)
+
 ## v1.3.2 (2023-02-22)
 
 ### Fixed

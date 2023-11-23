@@ -202,7 +202,11 @@ function options
   fi
 
   if [ $MARIADB = "1" ]; then
-    printf "  - Install ${GREEN}MariaDB 10.6${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
+    if [[ "$OS" = "centos7" || "$OS" = "rocky8" ]]; then
+      printf "  - Install ${GREEN}MariaDB ${MARIADB_VERSION}${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/\n"
+    else
+      printf "  - Install ${GREEN}MariaDB 10.6${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
+    fi
 
     if [ ! -z $MARIADB_RAM ]; then
       printf "      Use memory config : ${YELLOW}${MARIADB_RAM}${NO_COLOR}\n"
