@@ -1,5 +1,10 @@
 # php79 stack 변경 내역
 
+## v1.5.0 (2024-11-16)
+
+### Added
+- PHP 8.3 설치 추가 https://github.com/php79/stack/issues/109
+
 ## v1.4.0 (2023-11-23)
 
 ### Added

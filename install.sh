@@ -128,6 +128,12 @@ if [ $PHP82 = "1" ]; then
   PHP_INSTALLED=82
 fi
 
+if [ $PHP83 = "1" ]; then
+  cmd_once "scripts/remi-repo-install.sh"
+  cmd_once "scripts/php8-remi-install.sh 83"
+  PHP_INSTALLED=83
+fi
+
 ### /usr/bin/php link
 if [ ! $PHP_INSTALLED = "" ]; then
   if [ $OS = "centos7" ]; then

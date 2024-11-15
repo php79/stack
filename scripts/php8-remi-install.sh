@@ -11,7 +11,7 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 title "PHP [${1}] 버전을 설치합니다."
 
 if [ -z ${1} ]; then
-  abort "설치할 PHP 버전을 입력하세요.  80, 81, 82"
+  abort "설치할 PHP 버전을 입력하세요.  80, 81, 82, 83"
 fi
 
 yum_install php$1-php-cli php$1-php-fpm \
