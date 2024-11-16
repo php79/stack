@@ -20,7 +20,13 @@ else
         yum_install http://rpms.remirepo.net/enterprise/remi-release-6.rpm
     fi
 fi
-yum -y --enablerepo=remi update remi-release
+
+if [ ${YUM_INSTALL_QUIET} = "1" ]; then
+  yum -y -q --enablerepo=remi update remi-release
+else
+  yum -y --enablerepo=remi update remi-release
+fi
+
 yum-config-manager --enable remi | grep -P '\[remi|enabled ='
 yum-config-manager --save --setopt=remi.exclude="php-* mysql-*" | grep -P '\[remi\]|exclude = php'
 yum makecache

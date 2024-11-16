@@ -264,7 +264,11 @@ function yum_install
     echo "Already installed. -> $@"
     echo -n
   else
-    yum -y install ${PACKAGES}
+    if [ ${YUM_INSTALL_QUIET} = "1" ]; then
+      yum -y -q install ${PACKAGES}
+    else
+      yum -y install ${PACKAGES}
+    fi
 
     if [ ${?} != "0" ]; then
       abort "yum 패키지 설치가 실패하였습니다.\n    yum -y install ${PACKAGES}"
