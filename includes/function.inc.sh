@@ -109,9 +109,9 @@ function welcome
 {
   welcome_short
   if [ "$OS" = "rocky8" ]; then
-    echo "  * PHP 5.6-8.3 + Nginx + Let's Encrypt + MariaDB installer"
+    echo "  * PHP 5.6-8.4 + Nginx + Let's Encrypt + MariaDB installer"
   else
-    echo "  * PHP 5.3-8.3 + Nginx + Let's Encrypt + MariaDB installer"
+    echo "  * PHP 5.3-8.4 + Nginx + Let's Encrypt + MariaDB installer"
   fi
   echo
 }
@@ -119,6 +119,10 @@ function welcome
 function options
 {
   printf "  - Install ${GREEN}EPEL repo${NO_COLOR} / http://fedoraproject.org/wiki/EPEL\n"
+
+  if [ $PHP84 = "1" ]; then
+    printf "  - Install ${GREEN}PHP 8.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+  fi
 
   if [ $PHP83 = "1" ]; then
     printf "  - Install ${GREEN}PHP 8.3${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
