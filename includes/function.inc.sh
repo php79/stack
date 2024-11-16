@@ -253,12 +253,18 @@ function usage
 
 function yum_install
 {
-  is_installed $@
+  PACKAGES=$@
+
+  is_installed ${PACKAGES}
   if [ $FUNC_RESULT = "1" ]; then
-    #echo "Already installed. -> $@"
+    echo "Already installed. -> $@"
     echo -n
   else
-    yum -y install $@
+    yum -y install ${PACKAGES}
+
+    if [ ${?} != "0" ]; then
+      abort "yum 패키지 설치가 실패하였습니다.\n    yum -y install ${PACKAGES}"
+    fi
   fi
 }
 
@@ -267,7 +273,8 @@ function is_installed
   for i in "$@"
   do
     RESULT=`yum -C --noplugins -q list installed $i 2> /dev/null`
-    if [[ ! $RESULT == *"$i"* ]]; then
+    if [ ${?} != "0" ]; then
+#      notice "Not installed. -> ${i}"
       FUNC_RESULT=0
       return
     fi
