@@ -134,10 +134,12 @@ if [ $PHP83 = "1" ]; then
   PHP_INSTALLED=83
 fi
 
-if [ $PHP84 = "1" ]; then
-  cmd_once "scripts/remi-repo-install.sh"
-  cmd_once "scripts/php8-remi-install.sh 84"
-  PHP_INSTALLED=84
+if [ "$OS" = "rocky8" ]; then
+  if [ $PHP84 = "1" ]; then
+    cmd_once "scripts/remi-repo-install.sh"
+    cmd_once "scripts/php8-remi-install.sh 84"
+    PHP_INSTALLED=84
+  fi
 fi
 
 ### /usr/bin/php link

@@ -11,7 +11,11 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 title "PHP [${1}] 버전을 설치합니다."
 
 if [ -z ${1} ]; then
-  abort "설치할 PHP 버전을 입력하세요.  80, 81, 82, 83, 84"
+    if [ "$OS" = "rocky8" ]; then
+      abort "설치할 PHP 버전을 입력하세요.  80, 81, 82, 83, 84"
+    else
+      abort "설치할 PHP 버전을 입력하세요.  80, 81, 82, 83"
+    fi
 fi
 
 yum_install php$1-php-cli php$1-php-fpm \
