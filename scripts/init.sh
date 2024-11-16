@@ -13,7 +13,10 @@ yum -y --exclude=kernel* update
 
 if [ "$OS" = "rocky8" ]; then
   # glibc-gconv-extra 미설치시 iconv 모듈에서 EUC-KR 등 한글 인코딩 미지원 오류 발생
-  yum_install epel-release yum-utils chrony glibc-gconv-extra
+  # rsyslog 설치해야 /var/log/messages 기록
+  yum_install epel-release yum-utils chrony glibc-gconv-extra rsyslog
+
+  systemctl enable --now rsyslog
 
   systemctl enable --now chronyd
 
