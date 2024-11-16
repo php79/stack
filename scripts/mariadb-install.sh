@@ -49,6 +49,7 @@ else
 fi
 
 # secure installation
+notice "MariaDB 보안 강화 조치를 시작합니다.  mariadb-secure-installation"
 #echo -e "\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation    # <= 10.3
 #echo -e "\nn\nn\n\n\n\n\n" | /usr/bin/mysql_secure_installation  # >= 10.4  https://github.com/php79/stack/issues/58
-echo -e "\nn\nn\n\n\n\n\n" | /usr/bin/mariadb-secure-installation  # >= 10.6  https://github.com/php79/stack/issues/82#issuecomment-1189963633
+echo -e "\nn\nn\n\n\n\n\n" | /usr/bin/mariadb-secure-installation | grep '\[Y/n\]'  # >= 10.6  https://github.com/php79/stack/issues/82#issuecomment-1189963633
