@@ -13,11 +13,11 @@ if [ $FUNC_RESULT = "1" ]; then
     echo "Already installed. -> remi-release"
 else
     if [ "$OS" = "rocky8" ]; then
-        yum -y install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+        yum_install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
     elif [ "$OS" = "centos7" ]; then
-        yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+        yum_install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
     else
-        yum -y install http://rpms.remirepo.net/enterprise/remi-release-6.rpm
+        yum_install http://rpms.remirepo.net/enterprise/remi-release-6.rpm
     fi
 fi
 yum -y --enablerepo=remi update remi-release
