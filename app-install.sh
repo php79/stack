@@ -8,6 +8,8 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 
 cd ${STACK_ROOT}
 
+USR_BIN_PHP_VERSION=`/usr/bin/php -r 'echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;'`
+
 function show_usage
 {
   welcome_short
@@ -15,20 +17,26 @@ function show_usage
   title "앱 설치 순서는 다음과 같습니다."
   outputComment "  1. 시스템/디비 계정 자동 생성.  user-add.sh 사용"
   echo
-  outputComment "  2. 웹서버 자동 설정.   apps/앱이름/template-server.conf 으로 /etc/nginx/conf.d/사용자.conf 설정 생성"
+  outputComment "  2. 웹서버(Nginx) 자동 설정.   apps/앱이름/template-server.conf 으로 /etc/nginx/conf.d/사용자.conf 설정 생성"
   echo
-  outputComment "  3. 앱 자동 설치.  apps/앱이름/install.sh 를 사용자 디렉토리에 복사하여 실행."
+  outputComment "  3. (선택) 앱 자동 설치.  apps/앱이름/install.sh 를 사용자 디렉토리에 복사하여 실행."
+  echo
+  outputComment "  4. (선택) SSL 인증서 발급.  ssl-install.sh 사용"
   echo
 
   echo
   echo "Example:"
-  outputComment "  ${0} --user=phpmyadmin --domains=phpmyadmin.php79.net --app=phpmyadmin --php=74 --ssl"
+
+  echo "  # 홈페이지) domain=php79.net 사용시, php79.net 과 www.php79.net 2개 주소 지원"
+  outputComment "    ${0} --user=php79 --domain=php79.net"
   echo
-  outputComment "  ${0} --user=wordpress --domains=wordpress.php79.net --app=wordpress --php=74"
+
+  echo "  # Laravel) Laravel nginx rewrite 적용, PHP 버전 지정, SSL 인증서 발급"
+  outputComment "   ${0} --user=laravel --domains=laravel.php79.net --app=laravel --php=82 --ssl"
   echo
-  outputComment "  ${0} --user=laravel55 --domains=laravel55.php79.net --app=laravel55 --php=74 --ssl"
-  echo
-  outputComment "  ${0} --user=octobercms --domains=octobercms.php79.net --app=laravel51 --php=74 --ssl --skip-install"
+
+  echo "  # 멀티 도메인) domains 는 www. 없이 2개 이상 도메인 입력 가능"
+  outputComment "   ${0} --user=mail --domains='mail.php79.net mail.php79.kr'"
   echo
 
   echo
@@ -41,7 +49,7 @@ function show_usage
 
   echo -n "  "
   outputInfo  "--password"
-  echo "  (선택) 비밀번호.  미입력시 자동생성됩니다. 특수문자 사용시엔 반드시 작은 따옴표(')로 감싸주어야 합니다."
+  echo "  (기본 : 랜덤생성) 비밀번호.  미입력시 자동생성됩니다. 특수문자 사용시엔 반드시 작은 따옴표(')로 감싸주어야 합니다."
   echo
 
   echo -n "  "
@@ -61,20 +69,18 @@ function show_usage
 
   echo -n "  "
   outputInfo  "--app"
-  echo "       설치할 프로그램명은 ${STACK_ROOT}/apps 디렉토리안의 하위 디렉토리명과 일치해야 합니다."
-  echo "         laravel51  - Laravel 5.1"
-  echo "         laravel58  - Laravel 5.8  (5.1 ~ 5.8 까지 지원)"
+  echo "       (기본 : default) 설치할 프로그램명은 ${STACK_ROOT}/apps 디렉토리안의 하위 디렉토리명과 일치해야 합니다."
+  echo "         default    - Nginx 앱별 rewrite 설정이 없는 기본  (앱 자동 설치 install.sh 없음)"
+  echo "         laravel    - Laravel (앱 자동 설치 install.sh 없음)"
   echo "         wordpress  - WordPress"
   echo "         phpmyadmin - phpMyAdmin latest (PHP 7.2 이상)"
   echo "         gnuboard5  - 그누보드 5"
-  echo "         gnuboard4  - 그누보드 4"
-  echo "         xe1        - XE 1"
   echo
 
   echo -n "  "
   outputInfo  "--php"
-  echo "       PHP 버전을 [ 53 54 55 56 56 70 71 72 73 74 80 81 82 83 84 ] 형식으로 하나만 입력하세요."
-  echo "                Tip) Laravel 은 70, 그누보드4 는 53 등 프로그램에 따라 적절히 선택하세요."
+  echo "       (기본 : ${USR_BIN_PHP_VERSION}) PHP 버전을 [ 53 54 55 56 56 70 71 72 73 74 80 81 82 83 84 ] 형식으로 하나만 입력하세요."
+  echo "                Tip) Laravel 은 82, 그누보드4 는 53 등 프로그램에 따라 적절히 선택하세요."
   echo "                     ./status.sh 명령을 통해 현재 서버에 설치된 PHP 버전을 확인할 수 있습니다."
   echo
 
@@ -174,7 +180,8 @@ if [ -z ${INPUT_DOMAIN} ]; then
 fi
 
 if [ -z ${INPUT_APP} ]; then
-  input_abort "app 항목을 입력하세요."
+#  input_abort "app 항목을 입력하세요."
+  INPUT_APP="default"
 fi
 
 if [ ! -f "${STACK_ROOT}/apps/${INPUT_APP}/template-server.conf" ]; then
@@ -182,7 +189,8 @@ if [ ! -f "${STACK_ROOT}/apps/${INPUT_APP}/template-server.conf" ]; then
 fi
 
 if [ -z ${INPUT_PHP_VERSION} ]; then
-  input_abort "php_version 항목을 입력하세요."
+#  input_abort "php_version 항목을 입력하세요."
+  INPUT_PHP_VERSION="${USR_BIN_PHP_VERSION}"
 fi
 
 if [ ! -f "/usr/bin/php${INPUT_PHP_VERSION}" ]; then
@@ -272,11 +280,13 @@ fi
 
 # 앱 설치 스크립트 추가
 if [ "$INPUT_SKIP_INSTALL" = "0" ]; then
-  notice "앱 설치를 시작합니다."
-  cp -av "${STACK_ROOT}/apps/${INPUT_APP}/install.sh" "/home/${INPUT_USER}/" \
-  && chmod -v 700 "/home/${INPUT_USER}/install.sh" \
-  && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
-  && su - ${INPUT_USER} -c "./install.sh ${INPUT_USER} ${INPUT_PASSWORD}"
+  if [ -f "${STACK_ROOT}/apps/${INPUT_APP}/install.sh" ]; then
+    notice "앱 설치를 시작합니다."
+    cp -av "${STACK_ROOT}/apps/${INPUT_APP}/install.sh" "/home/${INPUT_USER}/" \
+    && chmod -v 700 "/home/${INPUT_USER}/install.sh" \
+    && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
+    && su - ${INPUT_USER} -c "./install.sh ${INPUT_USER} ${INPUT_PASSWORD}"
+  fi
 
   if [ -f "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" ]; then
     cp -av "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" "/home/${INPUT_USER}/" \
