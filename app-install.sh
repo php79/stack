@@ -70,11 +70,12 @@ function show_usage
   echo -n "  "
   outputInfo  "--app"
   echo "       (기본 : default) 설치할 프로그램명은 ${STACK_ROOT}/apps 디렉토리안의 하위 디렉토리명과 일치해야 합니다."
-  echo "         default    - Nginx 앱별 rewrite 설정이 없는 기본  (앱 자동 설치 install.sh 없음)"
-  echo "         laravel    - Laravel (앱 자동 설치 install.sh 없음)"
-  echo "         wordpress  - WordPress"
-  echo "         phpmyadmin - phpMyAdmin latest (PHP 7.2 이상)"
-  echo "         gnuboard5  - 그누보드 5"
+  echo "         default      - Nginx 앱별 rewrite 설정이 없는 기본"
+  echo "         laravel      - Laravel"
+  echo "         codeigniter4 - CodeIgniter 4"
+  echo "         wordpress    - WordPress (앱 자동 설치 install.sh 있음)"
+  echo "         phpmyadmin   - phpMyAdmin (앱 자동 설치 install.sh 있음)"
+  echo "         gnuboard5    - 그누보드 5 (앱 자동 설치 install.sh 있음)"
   echo
 
   echo -n "  "
@@ -286,6 +287,8 @@ if [ "$INPUT_SKIP_INSTALL" = "0" ]; then
     && chmod -v 700 "/home/${INPUT_USER}/install.sh" \
     && chown -v "${INPUT_USER}.${INPUT_USER}" "/home/${INPUT_USER}/install.sh" \
     && su - ${INPUT_USER} -c "./install.sh ${INPUT_USER} ${INPUT_PASSWORD}"
+  else
+    su - ${INPUT_USER} -c "mkdir -p ~/master/public"
   fi
 
   if [ -f "${STACK_ROOT}/apps/${INPUT_APP}/update.sh" ]; then
