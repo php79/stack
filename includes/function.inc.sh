@@ -109,136 +109,188 @@ function welcome
 {
   welcome_short
   if [ "$OS" = "rocky8" ]; then
-    echo "  * PHP 5.6-8.4 + Nginx + Let's Encrypt + MariaDB installer"
+    echo "  * PHP 5.6 ~ 8.4 + Nginx + Let's Encrypt + MariaDB installer"
   else
-    echo "  * PHP 5.3-8.3 + Nginx + Let's Encrypt + MariaDB installer"
+    echo "  * PHP 5.3 ~ 8.3 + Nginx + Let's Encrypt + MariaDB installer"
   fi
   echo
 }
 
 function options
 {
-  printf "  - Install ${GREEN}EPEL repo${NO_COLOR} / http://fedoraproject.org/wiki/EPEL\n"
-
-  if [ $PHP84 = "1" ]; then
-    if [ "$OS" = "rocky8" ]; then
-      printf "  - Install ${GREEN}PHP 8.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-    else
-      printf "  - CentOS 7 에서는 ${GREEN}PHP 8.4${NO_COLOR} 를 지원하지 않습니다.\n"
-    fi
+  if [ ! -f "locks/scripts_init.sh" ]; then
+    printf "  - Install ${GREEN}EPEL repo${NO_COLOR} / http://fedoraproject.org/wiki/EPEL\n"
   fi
 
-  if [ $PHP83 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 8.3${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-  fi
-
-  if [ $PHP82 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 8.2${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-  fi
-
-  if [ $PHP81 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 8.1${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-  fi
-
-  if [ $PHP80 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 8.0${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-  fi
-
-  if [ $PHP74 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 7.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-  fi
-
-  if [ $PHP73 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 7.3${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-  fi
-
-  if [ $PHP72 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 7.2${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-  fi
-
-  if [ $PHP71 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 7.1${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-  fi
-
-  if [ $PHP70 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 7.0${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-    printf "      ${YELLOW}PHP 7.0 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
-  fi
-
-  if [ $PHP56 = "1" ]; then
-    printf "  - Install ${GREEN}PHP 5.6${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-    printf "      ${YELLOW}PHP 5.6 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
-  fi
-
-  if [ $PHP55 = "1" ]; then
-    if [ "$OS" = "rocky8" ]; then
-      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.5${NO_COLOR} 를 지원하지 않습니다.\n"
-    else
-      printf "  - Install ${GREEN}PHP 5.5${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-      printf "      ${YELLOW}PHP 5.5 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
-    fi
-  fi
-
-  if [ $PHP54 = "1" ]; then
-    if [ "$OS" = "rocky8" ]; then
-      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.4${NO_COLOR} 를 지원하지 않습니다.\n"
-    else
-      printf "  - Install ${GREEN}PHP 5.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
-      printf "      ${YELLOW}PHP 5.4 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
-    fi
-  fi
-
-  if [ $PHP53 = "1" ]; then
-    if [ "$OS" = "rocky8" ]; then
-      printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.3${NO_COLOR} 을 지원하지 않습니다.\n"
-    else
-      if [ ${OS} = "centos7" ]; then
-        printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} / Source compile\n"
+  if [ ! -f "locks/scripts_php8-remi-install.sh_84" ]; then
+    if [ $PHP84 = "1" ]; then
+      if [ "$OS" = "rocky8" ]; then
+        printf "  - Install ${GREEN}PHP 8.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
       else
-        printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo\n"
+        printf "  - CentOS 7 에서는 ${GREEN}PHP 8.4${NO_COLOR} 를 지원하지 않습니다.\n"
       fi
-      printf "      ${YELLOW}PHP 5.3 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php8-remi-install.sh_83" ]; then
+    if [ $PHP83 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 8.3${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php8-remi-install.sh_82" ]; then
+    if [ $PHP82 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 8.2${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php8-remi-install.sh_81" ]; then
+    if [ $PHP81 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 8.1${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php8-remi-install.sh_80" ]; then
+    if [ $PHP80 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 8.0${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php7-remi-install.sh_74" ]; then
+    if [ $PHP74 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 7.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php7-remi-install.sh_73" ]; then
+    if [ $PHP73 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 7.3${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php7-remi-install.sh_72" ]; then
+    if [ $PHP72 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 7.2${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php7-remi-install.sh_71" ]; then
+    if [ $PHP71 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 7.1${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php7-remi-install.sh_70" ]; then
+    if [ $PHP70 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 7.0${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+      printf "      ${YELLOW}PHP 7.0 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php5-remi-install.sh_56" ]; then
+    if [ $PHP56 = "1" ]; then
+      printf "  - Install ${GREEN}PHP 5.6${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+      printf "      ${YELLOW}PHP 5.6 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php5-remi-install.sh_55" ]; then
+    if [ $PHP55 = "1" ]; then
+      if [ "$OS" = "rocky8" ]; then
+        printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.5${NO_COLOR} 를 지원하지 않습니다.\n"
+      else
+        printf "  - Install ${GREEN}PHP 5.5${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+        printf "      ${YELLOW}PHP 5.5 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+      fi
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_php5-remi-install.sh_54" ]; then
+    if [ $PHP54 = "1" ]; then
+      if [ "$OS" = "rocky8" ]; then
+        printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.4${NO_COLOR} 를 지원하지 않습니다.\n"
+      else
+        printf "  - Install ${GREEN}PHP 5.4${NO_COLOR} from Remi repo / http://rpms.famillecollet.com/\n"
+        printf "      ${YELLOW}PHP 5.4 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+      fi
+    fi
+  fi
+
+  if [[ ! -f "locks/scripts_centos7-php53-install.sh" && ! -f "locks/scripts_centos6-php53-install.sh" ]]; then
+    if [ $PHP53 = "1" ]; then
+      if [ "$OS" = "rocky8" ]; then
+        printf "  - Rocky Linux 8 에서는 ${GREEN}PHP 5.3${NO_COLOR} 을 지원하지 않습니다.\n"
+      else
+        if [ ${OS} = "centos7" ]; then
+          if [ ! -f "locks/scripts_centos7-php53-install.sh" ]; then
+            printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} / Source compile\n"
+          fi
+        else
+          if [ ! -f "locks/scripts_centos6-php53-install.sh" ]; then
+            printf "  - Install ${GREEN}PHP 5.3${NO_COLOR} from Base repo\n"
+          fi
+        fi
+        printf "      ${YELLOW}PHP 5.3 have reached its \"End of Life\".${NO_COLOR} http://php.net/supported-versions.php\n"
+      fi
     fi
   fi
 
   if [ ! -z "$PHP_BASE" ]; then
-    echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
-  fi
+    USR_BIN_PHP_VERSION=`/usr/bin/php -r 'echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;'`
 
-  if [ $NGINX = "1" ]; then
-    printf "  - Install ${GREEN}Nginx 1.*${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
-  fi
-
-  if [ $LETSENCRYPT = "1" ]; then
-    printf "  - Install ${GREEN}Let's Encrypt tools${NO_COLOR} (certbot-auto + configs) / https://certbot.eff.org/\n"
-  fi
-
-  if [ $MARIADB = "1" ]; then
-    if [[ "$OS" = "centos7" || "$OS" = "rocky8" ]]; then
-      printf "  - Install ${GREEN}MariaDB ${MARIADB_VERSION}${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/\n"
-    else
-      printf "  - Install ${GREEN}MariaDB 10.6${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
-    fi
-
-    if [ ! -z $MARIADB_RAM ]; then
-      printf "      Use memory config : ${YELLOW}${MARIADB_RAM}${NO_COLOR}\n"
+    if [ $USR_BIN_PHP_VERSION != $PHP_BASE ]; then
+      echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
     fi
   fi
 
-  if [ $SMARTD = "1" ]; then
-    echo "  - Install smartmontools (physical server only)"
+  if [ ! -f "locks/scripts_nginx-install.sh" ]; then
+    if [ $NGINX = "1" ]; then
+      printf "  - Install ${GREEN}Nginx 1.*${NO_COLOR} from Nginx repo (stable) / http://nginx.org/en/linux_packages.html\n"
+    fi
   fi
 
-  if [ $SENSORS = "1" ]; then
-    echo "  - Install lm_sensors (physical server only)"
+  if [ ! -f "locks/scripts_letsencrypt-install.sh" ]; then
+    if [ $LETSENCRYPT = "1" ]; then
+      printf "  - Install ${GREEN}Let's Encrypt tools${NO_COLOR} (certbot-auto + configs) / https://certbot.eff.org/\n"
+    fi
   fi
 
-  if [ $DEV_TOOLS = "1" ]; then
-    echo "  - Install developer tools (wget, rsync, nslookup, ...)"
+  if [[ ! -f "locks/scripts_mariadb-repo-install.sh" && ! -f "locks/scripts_mariadb-install.sh_" ]]; then
+    if [ $MARIADB = "1" ]; then
+      if [[ "$OS" = "centos7" || "$OS" = "rocky8" ]]; then
+        printf "  - Install ${GREEN}MariaDB ${MARIADB_VERSION}${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/\n"
+      else
+        printf "  - Install ${GREEN}MariaDB 10.6${NO_COLOR} from MariaDB repo (stable) / https://mariadb.com/kb/en/mariadb/yum/\n"
+      fi
+
+      if [ ! -z $MARIADB_RAM ]; then
+        printf "      Use memory config : ${YELLOW}${MARIADB_RAM}${NO_COLOR}\n"
+      fi
+    fi
   fi
 
-  if [ ! -z $TIMEZONE ]; then
-    printf "  - Change time zone ${YELLOW}${TIMEZONE}${NO_COLOR} for /etc/localtime, php.ini\n"
+  if [ ! -f "locks/scripts_smartd-install.sh" ]; then
+    if [ $SMARTD = "1" ]; then
+      echo "  - Install smartmontools (physical server only)"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_lm-sensors-install.sh" ]; then
+    if [ $SENSORS = "1" ]; then
+      echo "  - Install lm_sensors (physical server only)"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_dev-tools-install.sh" ]; then
+    if [ $DEV_TOOLS = "1" ]; then
+      echo "  - Install developer tools (wget, rsync, nslookup, ...)"
+    fi
+  fi
+
+  if [ ! -f "locks/scripts_timezone.sh_Asia_Seoul" ]; then
+    if [ ! -z $TIMEZONE ]; then
+      printf "  - Change time zone ${YELLOW}${TIMEZONE}${NO_COLOR} for /etc/localtime, php.ini\n"
+    fi
   fi
 
   if [ $INTERACTIVE = "1" ]; then
