@@ -44,9 +44,10 @@ else
   outputComment "  (생략) /var/www/letsencrypt/.well-known 디렉토리가 이미 존재합니다.\n"
 fi
 
-notice "[4/5] 암호화 강화를 위한 Diffie-Hellman parameters 를 생성합니다."
+notice "[4/5] 암호화 강화를 위한 Diffie-Hellman parameters 를 생성합니다. (약 20초 ~ 3분 이상 소요)"
 if [ ! -f "/etc/letsencrypt/php79/ssl-dhparams.pem" ]; then
-  openssl dhparam -out /etc/letsencrypt/php79/ssl-dhparams.pem 2048
+  openssl dhparam -out /etc/letsencrypt/php79/ssl-dhparams.pem 2048 2>/dev/null
+  ls -l /etc/letsencrypt/php79/ssl-dhparams.pem
 else
   outputComment "  (생략) /etc/letsencrypt/php79/ssl-dhparams.pem 파일이 이미 존재합니다.\n"
 fi

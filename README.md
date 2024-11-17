@@ -1,6 +1,6 @@
 # php79 stack
 
-> PHP 5.3 ~ 8.2 + Nginx + Let's Encrypt + MariaDB + 앱들을 자동 설치합니다.
+> PHP 5.3 ~ 8.4 + Nginx + Let's Encrypt + MariaDB + 앱들을 자동 설치합니다.
 
 
 ## 특징
@@ -8,7 +8,7 @@
 - 쉽고 빠른 설치, 운영, 업데이트까지 고려한 설계
 - 쉬운 업데이트 지원.  (공식+인기 저장소를 사용하여 `yum update` 만으로 완료)
 - 기본 설정 파일의 수정을 최소화하여 혼란 예방.  (주요 설정 내용을 z-php79.ini 형태의 외부 파일로 분리)
-- PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2 12가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
+- PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3, 8.4 14가지 버전을 지원하며, 하나의 서버에서 2개 이상의 PHP 사용 가능.
   - Rocky Linux 8) PHP 5.6 이상 지원. (PHP 5.3 ~ 5.5 지원불가) 
 - Laravel 5.1~5.5, WordPress, XE, 그누보드 4/5, phpMyAdmin 자동 설치 지원.  ([app-install.sh](app-install.sh))
 - 시스템 계정, 디비 계정 자동 생성 지원.  ([user-add.sh](user-add.sh))
@@ -61,7 +61,7 @@ cd /root/stack
  - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치, 무료 SSL 발급까지 모두 한 번에 이루어 집니다.
 
 ```bash
-./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=71 --ssl
+./app-install.sh --user=laravel --domain=laravel.php79.net --app=laravel --php=82 --ssl
 ```
  
 ![app-install.sh](https://www.php79.com/wp-content/uploads/2017/09/2017-09-16-162611.png)
@@ -105,8 +105,9 @@ cd /root/stack
 
 ## 설치 내역
 
-### PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2
+### PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3, 8.4
 - 단, CentOS 7 의 PHP 5.3 공식 저장소가 없어, 소스 컴파일 설치됩니다.
+  - CentOS 7 은 PHP 8.3 까지 지원 
 - Rocky Linux 8) PHP 5.6 이상 지원. (PHP 5.3 ~ 5.5 지원불가)
 - composer 설치
 

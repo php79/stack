@@ -55,7 +55,7 @@ function notice
   echo
   outputInfo "Notice) $@"
   echo
-  echo
+#  echo
 }
 
 function error

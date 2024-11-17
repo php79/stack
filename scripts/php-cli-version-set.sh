@@ -9,7 +9,7 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 title "PHP CLI (/usr/bin/php) 를 PHP ${1} 버전으로 설정합니다."
 
 if [ -z ${1} ]; then
-  abort "설정할 PHP 버전을 입력하세요.  53 54 55 56 70"
+  abort "설정할 PHP 버전을 입력하세요.  예시) 53 54 55 56 70 71 72 73 74 80 81 82 83 84"
 fi
 
 if [ ! -f "/usr/bin/php${1}" ]; then

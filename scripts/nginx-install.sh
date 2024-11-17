@@ -8,16 +8,18 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 
 title "Nginx 를 설치합니다."
 
-is_installed nginx-release
+is_installed nginx-release-centos
 if [ $FUNC_RESULT = "1" ]; then
-    echo "Already installed. -> nginx-release"
+    echo "Already installed. -> nginx-release-centos"
 else
     if [ "$OS" = "rocky8" ]; then
-        cp -av "${STACK_ROOT}/nginx/rocky8/nginx.repo" /etc/yum.repos.d/
+        if [ ! -f /etc/yum.repos.d/nginx.repo ]; then
+            cp -av "${STACK_ROOT}/nginx/rocky8/nginx.repo" /etc/yum.repos.d/
+        fi
     elif [ "$OS" = "centos7" ]; then
-        yum -y install http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+        yum_install http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
     else
-        yum -y install http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+        yum_install http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
     fi
 fi
 

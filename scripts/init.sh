@@ -9,11 +9,19 @@ source "${STACK_ROOT}/includes/function.inc.sh"
 title "yum 업데이트, EPEL 저장소 설치, 시간 자동 동기화를 진행합니다."
 
 yum makecache
-yum -y --exclude=kernel* update
+
+if [ ${YUM_INSTALL_QUIET} = "1" ]; then
+  yum -y -q --exclude=kernel* update
+else
+  yum -y --exclude=kernel* update
+fi
 
 if [ "$OS" = "rocky8" ]; then
   # glibc-gconv-extra 미설치시 iconv 모듈에서 EUC-KR 등 한글 인코딩 미지원 오류 발생
-  yum_install epel-release yum-utils chrony glibc-gconv-extra
+  # rsyslog 설치해야 /var/log/messages 기록
+  yum_install epel-release yum-utils chrony glibc-gconv-extra rsyslog
+
+  systemctl enable --now rsyslog
 
   systemctl enable --now chronyd
 

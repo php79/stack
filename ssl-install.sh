@@ -233,8 +233,20 @@ if [ ${INPUT_SKIP_NGINX} != "1" ]; then
   if [ "${?}" != "1" ]; then
     outputComment "# nginx 에 'listen ... ssl' 설정이 이미 추가되었으므로 생략합니다.\n"
   else
+    # Nginx 1.25.1 이상 http2 on 설정 분리
+    NGINX_VERSION_CURRENT=$(/usr/sbin/nginx -v 2>&1 | grep -o '[0-9.]\+')
+    NGINX_VERSION_REQUIRED="1.25.1"
+    NGINX_VERSION_SORT_FIRST=$(printf '%s\n' ${NGINX_VERSION_REQUIRED} ${NGINX_VERSION_CURRENT} | sort -V | head -n1)
+
+    if [ ${NGINX_VERSION_SORT_FIRST} = ${NGINX_VERSION_REQUIRED} ]; then
+    	# 1.25.1 이상
+    	LETSENCRYPT_TEMPLATE="template-server-1.25.1.conf"
+    else
+    	LETSENCRYPT_TEMPLATE="template-server.conf"
+    fi
+
     outputComment "# nginx 설정의 마지막에 다음 설정을 추가합니다.\n\n"
-    sed -e "s/_INPUT_DOMAIN_/${INPUT_DOMAIN}/g" "${STACK_ROOT}/letsencrypt/template-server.conf"
+    sed -e "s/_INPUT_DOMAIN_/${INPUT_DOMAIN}/g" "${STACK_ROOT}/letsencrypt/${LETSENCRYPT_TEMPLATE}"
     echo
 
     # 마지막 } 문자를 #} 로 주석 처리
@@ -243,7 +255,7 @@ if [ ${INPUT_SKIP_NGINX} != "1" ]; then
     rm -f /tmp/php79-ssl-install-nginx
 
     # 마지막에 SSL 설정 추가
-    sed -e "s/_INPUT_DOMAIN_/${INPUT_DOMAIN}/g" "${STACK_ROOT}/letsencrypt/template-server.conf" >> ${NGINX_USER_CONF}
+    sed -e "s/_INPUT_DOMAIN_/${INPUT_DOMAIN}/g" "${STACK_ROOT}/letsencrypt/${LETSENCRYPT_TEMPLATE}" >> ${NGINX_USER_CONF}
     echo "}" >> ${NGINX_USER_CONF}
 
     outputComment "# nginx 설정 변경후, nginx 설정을 다시 테스트합니다.\n"
