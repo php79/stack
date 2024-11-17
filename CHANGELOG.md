@@ -1,9 +1,25 @@
 # php79 stack 변경 내역
 
-## v1.5.0 (2024-11-16)
+## v1.5.0 (2024-11-17)
 
 ### Added
 - PHP 8.3 , 8.4 설치 추가 https://github.com/php79/stack/issues/109
+  - PHP 8.4 는 Rocky Linux 8 에서만 지원
+- stack.defaults.conf 설정 추가 
+  - PHP_MODULES_72, PHP_MODULES_80 - PHP 버전별로 설치할 모듈 직접 정의 가능
+  - YUM_INSTALL_QUIET=1 - YUM(DNF) 패키지 설치시 상세 출력 생략
+- Rocky Linux 8, rsyslog 설치하여 /var/log/messages 로그 기록 지원
+- app-install.sh default(앱 미선언시 기본값), laravel 앱 템플릿 추가
+  - PHP 버전 미선언시 /usr/bin/php 버전 사용
+- SSL 설정에 ssl-hosting.conf 추가
+  - ssl-stable.conf 에서 HSTS 옵션만 끄기 (호스팅 서비스 등 고려)
+
+### Fixed
+- Nginx 1.25.1 이상 버전의 http2 on 설정 분기 지원 https://github.com/php79/stack/issues/110
+- yum 패키지 설치 실패시 중단하여 오류 원인 쉽게 파악 가능하도록 함
+- CentOS 7 에서 MariaDB MaxScale 저장소 오류가 있어 제외
+- 설치 과정에서 화면 출력 최소화
+    - 설치 프로그램에서 이미 설치된 프로그램은 안내 생략 (locks/ 파일 존재 여부로 확인)
 
 ## v1.4.0 (2023-11-23)
 

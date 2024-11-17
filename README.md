@@ -61,7 +61,7 @@ cd /root/stack
  - 시스템 계정, 디비 계정, 웹서버 설정, 앱 자동 설치, 무료 SSL 발급까지 모두 한 번에 이루어 집니다.
 
 ```bash
-./app-install.sh --user=laravel54 --domain=laravel54.php79.net --app=laravel54 --php=71 --ssl
+./app-install.sh --user=laravel --domain=laravel.php79.net --app=laravel --php=82 --ssl
 ```
  
 ![app-install.sh](https://www.php79.com/wp-content/uploads/2017/09/2017-09-16-162611.png)
