@@ -236,9 +236,13 @@ function options
   fi
 
   if [ ! -z "$PHP_BASE" ]; then
-    USR_BIN_PHP_VERSION=`/usr/bin/php -r 'echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;'`
+    if [ -f /usr/bin/php ]; then
+      USR_BIN_PHP_VERSION=`/usr/bin/php -r 'echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;'`
+    else
+      USR_BIN_PHP_VERSION=""
+    fi
 
-    if [ $USR_BIN_PHP_VERSION != $PHP_BASE ]; then
+    if [ "${USR_BIN_PHP_VERSION}" != "${PHP_BASE}" ]; then
       echo "  - Set PHP CLI version ( /usr/bin/php ) : $PHP_BASE"
     fi
   fi
